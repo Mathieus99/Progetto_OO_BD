@@ -1,52 +1,25 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import Controller.Controller;
-import java.awt.GridBagLayout;
-import java.awt.Toolkit;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import java.awt.Font;
-import java.awt.Color;
-import javax.swing.JRadioButton;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.AbstractListModel;
-import javax.swing.JComboBox;
-import java.awt.Choice;
-import javax.swing.JTable;
-import javax.swing.JSpinner;
-import javax.swing.JTree;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.lang.reflect.Array;
 
-import javax.swing.Box;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JToggleButton;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.JSlider;
-import javax.swing.JScrollBar;
-import javax.swing.JFormattedTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class Registrazione extends JFrame {
+public class RegistrazioneDocente extends JFrame {
 	private String ruolo;
 	private JFrame frame;
 	private JFrame accessoapp;
@@ -59,7 +32,7 @@ public class Registrazione extends JFrame {
 	private JPasswordField passwordFieldConferma;
 	private JTextField textFieldMatricola;
 	
-	public Registrazione(Controller c, JFrame accesso, String ruolo){
+	public RegistrazioneDocente (Controller c, JFrame accesso, String ruolo){
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Legnarino Web Learning");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("H:\\DESKTOP\\Legnarino_icon2.png"));
@@ -134,12 +107,6 @@ public class Registrazione extends JFrame {
 		passwordFieldConferma.setBounds(456, 143, 145, 20);
 		getContentPane().add(passwordFieldConferma);
 		
-		textFieldMatricola = new JTextField();
-		textFieldMatricola.setFont(new Font("Lucida Bright", Font.PLAIN, 13));
-		textFieldMatricola.setBounds(128, 223, 145, 20);
-		getContentPane().add(textFieldMatricola);
-		textFieldMatricola.setColumns(10);
-		
 		JLabel lblNomeError = new JLabel("");
 		lblNomeError.setForeground(Color.RED);
 		lblNomeError.setFont(new Font("Lucida Bright", Font.BOLD, 11));
@@ -174,13 +141,7 @@ public class Registrazione extends JFrame {
 		lblEmailConfError.setForeground(Color.RED);
 		lblEmailConfError.setFont(new Font("Lucida Bright", Font.BOLD, 11));
 		lblEmailConfError.setBounds(454, 198, 166, 14);
-		getContentPane().add(lblEmailConfError);		
-		
-		JLabel lblMatricolaError = new JLabel("");
-		lblMatricolaError.setForeground(Color.RED);
-		lblMatricolaError.setFont(new Font("Lucida Bright", Font.BOLD, 11));
-		lblMatricolaError.setBounds(283, 229, 176, 14);
-		getContentPane().add(lblMatricolaError);
+		getContentPane().add(lblEmailConfError);
 				
 		JButton btnRegistrazione = new JButton("Registrati");
 		btnRegistrazione.addActionListener(new ActionListener() {
@@ -191,7 +152,6 @@ public class Registrazione extends JFrame {
 				lblEmailConfError.setText("");
 				lblPswError.setText("");
 				lblPswConfError.setText("");
-				lblMatricolaError.setText("");
 				boolean ok=true;
 				if(textFieldNome.getText().contentEquals("")) {
 					lblNomeError.setText("Inserisci il nome!");
@@ -206,7 +166,7 @@ public class Registrazione extends JFrame {
 					lblEmailError.setText("Inserisci l'email!");
 					ok=false;
 				}
-				if(!textFieldEmail.getText().contains("@studenti.unina.it") && !lblEmailError.getText().contentEquals("Inserisci l'email!")) {
+				if(!textFieldEmail.getText().contains("@unina.it") && !lblEmailError.getText().contentEquals("Inserisci l'email!")) {
 					lblEmailError.setText("Email non valida!");
 					ok=false;
 				}
@@ -225,10 +185,6 @@ public class Registrazione extends JFrame {
 				}
 				if(!passwordFieldConferma.getText().contentEquals(passwordField.getText()) && !lblPswError.getText().contentEquals("Password non valida!")) {
 					lblPswConfError.setText("Le password sono diverse!");
-					ok=false;
-				}
-				if(!textFieldMatricola.getText().contains("N86") || textFieldMatricola.getText().length()!=9) {
-					lblMatricolaError.setText("Matricola non valida!");
 					ok=false;
 				}
 				//if(ok) { }
@@ -270,10 +226,5 @@ public class Registrazione extends JFrame {
 		btnAnnulla.setFont(new Font("Lucida Bright", Font.BOLD, 16));
 		btnAnnulla.setBounds(390, 254, 125, 35);
 		getContentPane().add(btnAnnulla);
-		
-		JLabel lblMatricola = new JLabel("Matricola");
-		lblMatricola.setFont(new Font("Lucida Bright", Font.BOLD, 16));
-		lblMatricola.setBounds(46, 223, 77, 20);
-		getContentPane().add(lblMatricola);
 	}
 }

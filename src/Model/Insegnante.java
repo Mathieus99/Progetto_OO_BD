@@ -7,8 +7,8 @@ public class Insegnante extends Utente {
 	private String email;
 	private ArrayList<Test> testCreati;
 	
-	public Insegnante(String nome, String cognome, String login, String password, String email) {
-		super(nome, cognome, login, password);
+	public Insegnante(String nome, String cognome, String password, String email) {
+		super(nome, cognome, password);
 		this.email = email;
 	}
 
@@ -27,6 +27,4 @@ public class Insegnante extends Utente {
 	public void setTestCreati(ArrayList<Test> testCreati) {
 		this.testCreati = testCreati;
 	}
-
-	
 }

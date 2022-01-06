@@ -101,9 +101,14 @@ public class Home extends JFrame {
 				boolean ok=true;
 				if (textFieldUsername.getText().contentEquals("")) {
 					lblUsernameError.setText("Inserisci username!");
+					ok=false;
 				}
 				if (passwordField.getText().contentEquals("") && !textFieldUsername.getText().contentEquals("")) {
 					lblPswError.setText("Password errata!");
+					ok=false;
+				}
+				if(ok) {
+					
 				}
 			}
 		});

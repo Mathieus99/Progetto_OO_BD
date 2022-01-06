@@ -56,6 +56,14 @@ public class SelezioneRuolo extends JFrame {
 		getContentPane().add(btnStudente);
 		
 		JButton btnDocente = new JButton("Docente");
+		btnDocente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ruolo="Docente";
+				JFrame frameRegistrazione=new RegistrazioneDocente (controller, accessoapp, ruolo);
+				frame.setVisible(false);
+				frameRegistrazione.setVisible(true);
+			}
+		});
 		btnDocente.setBackground(new Color(255, 153, 0));
 		btnDocente.setBounds(174, 11, 120, 35);
 		btnDocente.setFont(new Font("Lucida Bright", Font.BOLD, 16));
