@@ -22,7 +22,7 @@ CREATE DOMAIN tipoQuiz VARCHAR(16)
 CHECK (VALUE = 'Multipla' OR VALUE = 'Aperta' OR VALUE = 'Mista');
 
 CREATE DOMAIN punteggioDmax AS FLOAT
-CHECK (VALUE > 0 OR VALUE = 0);
+CHECK (VALUE > 0);
 
 CREATE DOMAIN punteggioDmin AS FLOAT
 CHECK (VALUE < 0 OR VALUE = 0);
@@ -35,7 +35,7 @@ CREATE TABLE Test
 	TipoQuiz tipoQuiz NOT NULL,
     MaxPunteggio FLOAT DEFAULT 0,
     NumDomande INTEGER DEFAULT 0,
-    PunteggioDMax punteggioDmax NOT NULL DEFAULT 0,
+    PunteggioDMax punteggioDmax NOT NULL,
     PunteggioDMin punteggioDmin DEFAULT 0, 
     Categoria VARCHAR(32) NOT NULL,
     Insegnante BIGSERIAL NOT NULL,
@@ -89,6 +89,7 @@ CREATE TABLE IstanzaDiTest
    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+ALTER TABLE IstanzaDiTest ADD UNIQUE(dataSostenuto, Studente);
 ALTER TABLE IstanzaDiTest ADD CONSTRAINT ConsistenzaOrarioFine CHECK (datasostenuto::TIME < OrarioFine);
 
 CREATE TABLE RispostaUtente (
@@ -439,13 +440,13 @@ BEGIN
 	IF tipoD <> 'Multipla' THEN
 	    IF NEW.punteggiorisposta > PunteggioMax OR NEW.punteggiorisposta < punteggioMin THEN
 	        ROLLBACK;
-	    ELSE IF NEW.punteggiorisposta = PunteggioMax THEN
-		    UPDATE IstanzaDiTest
-			    SET numerorcorrette = numerorcorrette + 1
+	    ELSE IF NEW.punteggiorisposta = PunteggioMin THEN
+		     UPDATE IstanzaDiTest
+			    SET numerorerrate = numerorerrate + 1
 			WHERE idIstanzaDiTest = NEW.idIstanzaDiTest;
 		ELSE 
-		    UPDATE IstanzaDiTest
-			    SET numerorerrate = numerorerrate + 1
+			UPDATE IstanzaDiTest
+			    SET numerorcorrette = numerorcorrette + 1
 			WHERE idIstanzaDiTest = NEW.idIstanzaDiTest;
 			END IF;
 		END IF;
