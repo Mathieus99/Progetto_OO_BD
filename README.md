@@ -1,5 +1,5 @@
 # Progetto_OO_BD
-Sviluppo sistema informativo Legnarino.
+Sviluppo sistema informativo #Legnarino.
 
 Antonio Legnante N86003588 anto.legnante@studenti.unina.it
 
