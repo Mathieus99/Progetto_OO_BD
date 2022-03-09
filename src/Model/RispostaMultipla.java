@@ -15,6 +15,5 @@ public class RispostaMultipla extends Domanda {
 
 	public void setRisposte(ArrayList<String> risposte) {
 		this.risposte = risposte;
-	}
-    
+	}    
 }

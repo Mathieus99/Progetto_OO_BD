@@ -2,8 +2,8 @@ package Model;
 
 public class Domanda {
     private String testoDomanda;
-    private Test idTest;
-	
+	private Test idTest;
+    
 	public Domanda(String testoDomanda, Test idTest) {
 		super();
 		this.testoDomanda = testoDomanda;

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Test {
     private long idTest;
+    private String titolo;
     private int maxPunteggio;
     private int numeroDomande;
     private int punteggioDomandeMin;
@@ -12,13 +13,13 @@ public class Test {
     private String categoria;
     private ArrayList<Domanda> domande;
     private Insegnante proprietario;
-    private ArrayList<IstanzaDiTest> testSostenuti;
     
-
-	public Test(long idTest, int maxPunteggio, int numeroDomande, int punteggioDomandeMin, int punteggioDomandeMax,
+    /*--------------------------------------------------------------IMPOSTA IL TEST-------------------------------------------------------------*/
+	public Test(long idTest,String titolo, int maxPunteggio, int numeroDomande, int punteggioDomandeMin, int punteggioDomandeMax,
 		   String categoria, Insegnante proprietario) {
 		super();
 		this.idTest = idTest;
+		this.titolo = titolo;
 		this.maxPunteggio = maxPunteggio;
 		this.numeroDomande = numeroDomande;
 		this.punteggioDomandeMin = punteggioDomandeMin;
@@ -26,14 +27,12 @@ public class Test {
 		this.categoria = categoria;
 		this.proprietario = proprietario;
 	}
+	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	
-	public void setDomande()
+	/*----------------------------------------------IMPOSTA E RESTITUISCE I SINGOLI DATI DEL TEST----------------------------------------------*/
+	public void setDomande(Domanda d)
 	{
-		for(int i = 0; i < this.numeroDomande; i++)
-		{
-			
-		}
-		//this.proprietario.getTestCreati().add(this);
+		domande.add(d);
 	}
 
 	public long getIdTest() {
@@ -107,5 +106,5 @@ public class Test {
 	public void setTestSostenuti(ArrayList<IstanzaDiTest> testSostenuti) {
 		this.testSostenuti = testSostenuti;
 	}
-	
+	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 }

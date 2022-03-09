@@ -42,7 +42,7 @@ public class SelezioneRuolo extends JFrame {
 		btnStudente.setForeground(Color.WHITE);
 		btnStudente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ruolo="Studente";
+				controller.setRuolo("Studente");
 				JFrame frameRegistrazione=new Registrazione (controller, accessoapp, ruolo);
 				frame.setVisible(false);
 				frameRegistrazione.setVisible(true);
@@ -58,8 +58,8 @@ public class SelezioneRuolo extends JFrame {
 		JButton btnDocente = new JButton("Docente");
 		btnDocente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ruolo="Docente";
-				JFrame frameRegistrazione=new RegistrazioneDocente (controller, accessoapp, ruolo);
+				controller.setRuolo("Docente");
+				JFrame frameRegistrazione=new RegistrazioneDocente (controller, accessoapp);
 				frame.setVisible(false);
 				frameRegistrazione.setVisible(true);
 			}

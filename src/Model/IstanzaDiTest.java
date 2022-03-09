@@ -6,19 +6,18 @@ import java.util.Scanner;
 public class IstanzaDiTest {
     private String stato;
     private int punteggio;
-    private Test idTest;
+    private Test t;
     private Studente idStudente;
     private ArrayList<Risposta> risposteUtente;
     
-    public static final String IN_FASE_DI_VALUTAZIONE = "IN FASE DI VALUTAZIONE";
-    public static final String VALUTATO = "VALUTATO";
+    public static final String InFaseDiValutazione= "IN FASE DI VALUTAZIONE";
+    public static final String Valutato = "VALUTATO";
     
     public Scanner input = new Scanner(System.in);
      
 	public IstanzaDiTest(Test idTest, Studente idStudente) {
 		super();
-		this.stato = IstanzaDiTest.IN_FASE_DI_VALUTAZIONE;
-		this.idTest = idTest;
+		this.stato = IstanzaDiTest.InFaseDiValutazione;
 		this.idStudente = idStudente;
 	}
 	
@@ -34,11 +33,8 @@ public class IstanzaDiTest {
 	public void setPunteggio(int punteggio) {
 		this.punteggio = punteggio;
 	}
-	public Test getIdTest() {
-		return idTest;
-	}
-	public void setIdTest(Test idTest) {
-		this.idTest = idTest;
+	public long getIdTest() {
+		return t.getIdTest();
 	}
 	public Studente getIdStudente() {
 		return idStudente;

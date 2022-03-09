@@ -69,6 +69,7 @@ public class Registrazione extends JFrame {
 		controller=c;
 		this.ruolo=ruolo;
 		accessoapp=accesso;
+		controller.setRuolo(ruolo);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Lucida Bright", Font.BOLD, 16));
@@ -231,7 +232,13 @@ public class Registrazione extends JFrame {
 					lblMatricolaError.setText("Matricola non valida!");
 					ok=false;
 				}
-				//if(ok) { }
+				if(ok) { 
+					controller.registraStudente(textFieldNome.getText(), textFieldCognome.getText(), passwordField.getText(), textFieldEmail.getText(), textFieldMatricola.getText());
+					controller.setRegisterSuccesful(ok);
+					controller.fromRegister=true;
+					frame.setVisible(false);
+					accesso.setVisible(true);
+				}
 			}
 		});
 		btnRegistrazione.setSelectedIcon(null);

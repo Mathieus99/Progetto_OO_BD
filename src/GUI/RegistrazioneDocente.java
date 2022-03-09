@@ -20,7 +20,6 @@ import javax.swing.border.EmptyBorder;
 import Controller.Controller;
 
 public class RegistrazioneDocente extends JFrame {
-	private String ruolo;
 	private JFrame frame;
 	private JFrame accessoapp;
 	private Controller controller;
@@ -31,8 +30,9 @@ public class RegistrazioneDocente extends JFrame {
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldConferma;
 	private JTextField textFieldMatricola;
+	boolean annulla=false;
 	
-	public RegistrazioneDocente (Controller c, JFrame accesso, String ruolo){
+	public RegistrazioneDocente (Controller c, JFrame accesso){
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Legnarino Web Learning");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("H:\\DESKTOP\\Legnarino_icon2.png"));
@@ -40,7 +40,6 @@ public class RegistrazioneDocente extends JFrame {
 		getContentPane().setLayout(null);
 		frame=this;
 		controller=c;
-		this.ruolo=ruolo;
 		accessoapp=accesso;
 		
 		JLabel lblNome = new JLabel("Nome");
@@ -187,7 +186,14 @@ public class RegistrazioneDocente extends JFrame {
 					lblPswConfError.setText("Le password sono diverse!");
 					ok=false;
 				}
-				//if(ok) { }
+				if(ok) { 
+					controller.registraDocente(textFieldNome.getText(), textFieldCognome.getText(), passwordField.getText(), textFieldEmail.getText());
+					controller.setRegisterSuccesful(ok);
+					controller.fromRegister=true;
+					frame.setVisible(false);
+					accesso.setVisible(true);
+					
+				}
 			}
 		});
 		btnRegistrazione.setSelectedIcon(null);
@@ -219,6 +225,7 @@ public class RegistrazioneDocente extends JFrame {
 		btnAnnulla.setBackground(Color.WHITE);
 		btnAnnulla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controller.back=true;
 				frame.setVisible(false);
 				accessoapp.setVisible(true);
 			}
