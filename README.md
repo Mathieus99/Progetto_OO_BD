@@ -1,8 +1,11 @@
-# Progetto_OO_BD
-Sviluppo sistema informativo #Legnarino.
+# Progetto OO-BD
+![Legnarino Web Learning App](/assets/images/Legnarino_Logo_Github.png)
+
+## Sviluppo del sistema informativo Legnarino Web Learning
+Il sistema informativo Legnarino Web Learning prevede la creazione di un'applicazione in **Java** che gestisce tutte le attività degli utenti all'interno del sistema, e di una base di dati che memorizza le informazioni acquisite tramite l'applicazione.
+
+
+
 
 Antonio Legnante N86003588 anto.legnante@studenti.unina.it
-
 Matteo Marino N86003963 matt.marino@studenti.unina.it
-
-Il sistema informativo è adibito alla gestione di dati relativi ad un applicazione di E-Learning tramite test basati su quiz.
