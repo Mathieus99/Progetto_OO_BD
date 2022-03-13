@@ -1,0 +1,32 @@
+package Model;
+
+import java.util.ArrayList;
+
+public class Insegnante extends Utente {
+
+	private String email;
+	private ArrayList<Test> testCreati;
+	
+	/*-------------------------------------------------------------------REGISTRA IL DOCENTE---------------------------------------------------*/
+	public Insegnante(String nome, String cognome, String password, String email) {
+		super(nome, cognome, password);
+		this.email = email;
+	}
+	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	/*---------------------------------------------------------SETTA E RESTITUISCE I DATI DEL DOCENTE------------------------------------------*/
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public ArrayList<Test> getTestCreati() {
+		return testCreati;
+	}
+	public void setTestCreati(Test t) {
+		testCreati.add(t);
+	}
+	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+	
+}
