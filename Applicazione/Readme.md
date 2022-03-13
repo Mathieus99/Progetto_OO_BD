@@ -4,3 +4,18 @@ L'applicazione Legnarino Web Learning gestisce tutte le attività all'interno de
 - Creazione dei test da parte dei docenti;
 - Svolgimento dei test da parte degli studenti;
 - Correzione dei test, in particolare quelli contenenti domande a risposta aperta, da parte dei docenti e visualizzazione dei risultati da parte degli studenti;
+
+## ✒️Registrazione
+Ogni utente, sia studente che insegnante, si deve registrare nell'apposita sezione **_Registrazione_** inserendo:
+- Nome
+- Cognome
+- Email
+- Password
+- Matricola (per gli studenti)
+
+## 📝Test
+Nella sezione dedicata ai **_Test_**:
+
+👨‍🏫 Gli insegnanti possono inserire, visualizzare e valutare i test inseriti.
+
+👨‍🎓 Gli studenti possono visualizzare e svolgere i test, oltre che visualizzare i risultati ottenuti.
