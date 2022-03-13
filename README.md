@@ -1,5 +1,5 @@
 # Progetto OO-BD
-![Legnarino Web Learning App](/assets/images/Legnarino_Logo_Github.png)
+![Legnarino Web Learning App](/Legnarino WL loghi/Legnarino_Logo_Github.png)
 
 ## Sviluppo del sistema informativo Legnarino Web Learning
 Il sistema informativo Legnarino Web Learning prevede la creazione di un'applicazione in **Java** che gestisce tutte le attività degli utenti all'interno del sistema, e di una base di dati che memorizza le informazioni acquisite tramite l'applicazione.
