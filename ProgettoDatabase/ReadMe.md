@@ -7,4 +7,7 @@ Nella cartella **_Documentazione_** è inserita la documentazione relativa alla 
 - Progettazione concettuale
 - Progettazione Logica
 - Progettazione Fisica
-
+## 📝 Script DataBase
+Nella cartella **_script Database_** è contenuto il codice SQL della base di dati Legnarino Web Learning.
+## ❇️ File SQL
+Nella cartella **_file sql_** sono contenuti alcuni estratti di codice riguardanti procedure e funzioni particolar.
