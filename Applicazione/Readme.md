@@ -1,4 +1,4 @@
-# ![legnarino WL](https://github.com/Mathieus99/Progetto_OO_BD/blob/main/Applicazione/src/Immagini/Legnarino_icon.png) Applicazione
+# ![legnarino WL](https://github.com/Mathieus99/Progetto_OO_BD/blob/main/Applicazione/src/Immagini/Legnarino_icon2.png) Applicazione
 L'applicazione Legnarino Web Learning gestisce tutte le attività all'interno del sistema quali:
 - Registrazione, Login ed eliminazione degli utenti;
 - Creazione dei test da parte dei docenti;
