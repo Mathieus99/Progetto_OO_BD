@@ -1,4 +1,4 @@
-# Applicazione
+# ![legnarino WL]() Applicazione
 L'applicazione Legnarino Web Learning gestisce tutte le attività all'interno del sistema quali:
 - Registrazione, Login ed eliminazione degli utenti;
 - Creazione dei test da parte dei docenti;
