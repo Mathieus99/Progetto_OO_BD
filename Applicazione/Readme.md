@@ -20,5 +20,8 @@ Nella sezione dedicata ai **_Test_**:
 
 👨‍🎓 Gli studenti possono visualizzare e svolgere i test, oltre che visualizzare i risultati ottenuti.
 
+## 📊 Diagrammi UML
+Nella cartella **_Diagrammi App_** sono inseriti i diagrammi del dominio del problema e della soluzione.
+
 ## 📀 Codice Sorgente
 Il codice sorgente è inserito nella cartella **_src_**.
