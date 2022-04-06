@@ -27,7 +27,7 @@ public class SelezioneRuolo extends JFrame {
 	public SelezioneRuolo(Controller c, JFrame accesso) {
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Legnarino Web Learning");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("H:\\DESKTOP\\Legnarino_icon2.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SelezioneRuolo.class.getResource("/Immagini/Legnarino_icon2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(750, 250, 350, 100);
 		JPanel contentPane = new JPanel();

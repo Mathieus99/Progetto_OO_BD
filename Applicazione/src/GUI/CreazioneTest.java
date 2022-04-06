@@ -43,7 +43,7 @@ public class CreazioneTest extends JFrame {
 
 	public CreazioneTest(Controller c, JFrame guiUtente, JFrame accesso) {
 		setTitle("Legnarino Web Learning");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("H:\\DESKTOP\\Legnarino_icon2.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreazioneTest.class.getResource("/Immagini/Legnarino_icon2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(750, 250, 922, 649);
 		JPanel contentPane = new JPanel();
@@ -124,64 +124,28 @@ public class CreazioneTest extends JFrame {
 		panelBody.add(lblNumDomandeError);
 		
 		textFieldNumDomande = new JTextField();
-		textFieldNumDomande.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		textFieldNumDomande.addInputMethodListener(new InputMethodListener() {
+			public void inputMethodTextChanged(InputMethodEvent event) {
 				lblNumDomandeError.setText("");
-				if(!textFieldNumDomande.getText().matches("-?\\d")) {
+				if (!textFieldNumDomande.getText().matches("-?\\d+")) //Errore se input non è un numero
 					lblNumDomandeError.setText("Deve essere un numero!");
-				}
 				else {
-				controller.setNumDomande(Integer.parseInt(textFieldNumDomande.getText()));
-				JButton btnMultipla=new JButton("Multipla");
-				JButton btnAperta=new JButton("Aperta");
-				for (i=0; i<controller.getNumDomande();i++) {
-					JLabel lblNumDomanda = new JLabel("");
-					lblNumDomanda.setFont(new Font("Lucida Bright", Font.BOLD, 16));
-					lblNumDomanda.setBounds(10, 65+(30*i), 112, 20);
-					panelBody.add(lblNumDomanda);
-					lblNumDomanda.setText("Domanda "+i+":");
-					
-					btnMultipla.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							btnMultipla.setVisible(false);
-							btnAperta.setVisible(false);
-							JPanel panelDomandaAperta=new panelDomandaAperta(67*i);
-							panelBody.add(panelDomandaAperta);
-						}
-					});
-					btnMultipla.setFont(new Font("Lucida Bright", Font.PLAIN, 13));
-					btnMultipla.setBounds(159, 65+(30*i), 79, 23);
-					panelBody.add(btnMultipla);
-					
-					btnAperta.setFont(new Font("Lucida Bright", Font.PLAIN, 13));
-					btnAperta.setBounds(242, 65+(30*i), 79, 23);
-					panelBody.add(btnAperta);
-						
-					}
+					//Inserisci i form per le domande
+													
 				}
 			}
+
+			@Override
+			public void caretPositionChanged(InputMethodEvent event) {
+				lblNumDomandeError.setText("Successo Qualcosa");				
+			}
 		});
+		
 		textFieldNumDomande.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldNumDomande.setFont(new Font("Lucida Bright", Font.BOLD, 16));
 		textFieldNumDomande.setBounds(180, 8, 36, 20);
 		panelBody.add(textFieldNumDomande);
 		textFieldNumDomande.setColumns(10);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		comboBox.setFont(new Font("Lucida Bright", Font.PLAIN, 13));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Risposta Multipla", "Risposta aperta", "Risposta mista"}));
-		comboBox.setBounds(115, 33, 133, 26);
-		panelBody.add(comboBox);
-		
-		JLabel lblTipoQuiz = new JLabel("Tipo di Quiz: ");
-		lblTipoQuiz.setFont(new Font("Lucida Bright", Font.BOLD, 16));
-		lblTipoQuiz.setBounds(10, 36, 107, 20);
-		panelBody.add(lblTipoQuiz);
 				
 		/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	}

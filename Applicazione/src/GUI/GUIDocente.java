@@ -17,6 +17,8 @@ import Controller.Controller;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import java.awt.SystemColor;
 
 public class GUIDocente extends JFrame {
 
@@ -26,7 +28,7 @@ public class GUIDocente extends JFrame {
 	JFrame accessoapp;
 	
 	public GUIDocente(Controller c,JFrame accesso) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("H:\\DESKTOP\\Legnarino_icon2.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GUIDocente.class.getResource("/Immagini/Legnarino_icon2.png")));
 		setTitle("Legnarino Web Learning");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(750, 250, 876, 576);
@@ -118,5 +120,4 @@ public class GUIDocente extends JFrame {
 		btnCreaTest.setBackground(new Color(255, 153, 0));
 		/*-------------------------------------------------------------------------------------------------------------------------------------------------------*/
 	}
-
 }

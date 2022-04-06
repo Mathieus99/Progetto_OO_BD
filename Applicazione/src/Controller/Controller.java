@@ -3,15 +3,19 @@ package Controller;
 import Model.Insegnante;
 import Model.Studente;
 import Model.Test;
+import Database.ConnessioneDatabase;
+import Model.Domanda;
 
 public class Controller {
 	
 	// TODO creare Arraylist con tutti gli elementi presi dal DB
 	
 	private Studente s;
-	private Insegnante d;
+	private Insegnante i;
 	private Test t;
 	private String ruolo;
+	private Domanda d;
+	private ConnessioneDatabase connessione;
 	private boolean registerSuccesful;
 	public boolean fromRegister=false;
 	public boolean back=false;
@@ -19,10 +23,10 @@ public class Controller {
 	
 	/*----------------------------------------------------------REGISTRAZIONE UTENTI-----------------------------------------------------------*/
 	public void registraDocente (String nome, String cognome,String password, String email){
-		d.setNome(nome);
-		d.setCognome(cognome);
-		d.setPassword(password);
-		d.setEmail(email);
+		i.setNome(nome);
+		i.setCognome(cognome);
+		i.setPassword(password);
+		i.setEmail(email);
 	}	
 	public void registraStudente (String nome, String cognome, String password, String email, String matricola) {
 		s.setNome(nome);
@@ -50,7 +54,7 @@ public class Controller {
 		return s.getEmail();
 	}	
 	public String emailD() {
-		return d.getEmail();
+		return i.getEmail();
 	}	
 	public String nomeS() {
 		return s.getNome();
@@ -59,10 +63,10 @@ public class Controller {
 		return s.getCognome();
 	}	
 	public String nomeD() {
-		return d.getNome();
+		return i.getNome();
 	}	
 	public String cognomeD() {
-		return d.getCognome();
+		return i.getCognome();
 	}
 	/*-------------------------------------------------------------------------------------------------------------------------------------------*/
 	

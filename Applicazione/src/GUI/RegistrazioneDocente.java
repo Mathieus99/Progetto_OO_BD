@@ -35,7 +35,7 @@ public class RegistrazioneDocente extends JFrame {
 	public RegistrazioneDocente (Controller c, JFrame accesso){
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Legnarino Web Learning");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("H:\\DESKTOP\\Legnarino_icon2.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrazioneDocente.class.getResource("/Immagini/Legnarino_icon2.png")));
 		setBounds(750, 250, 714, 445);
 		getContentPane().setLayout(null);
 		frame=this;
@@ -210,7 +210,7 @@ public class RegistrazioneDocente extends JFrame {
 		JLabel lblTitle = new JLabel("");
 		lblTitle.setBounds(128, 0, 300, 75);
 		panel.add(lblTitle);
-		lblTitle.setIcon(new ImageIcon("H:\\DESKTOP\\Registrazione_Title2.png"));
+		lblTitle.setIcon(new ImageIcon(RegistrazioneDocente.class.getResource("/Immagini/Registrazione_Title2.png")));
 		
 		JLabel lblNewLabel = new JLabel("*La password deve contenere da 8 a 32 caratteri");
 		lblNewLabel.setForeground(Color.BLACK);

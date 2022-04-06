@@ -37,6 +37,8 @@ public class GUIUtente extends JFrame {
 	private String ruolo;
 	
 	public GUIUtente(Controller c, JFrame accesso) {
+		setTitle("Legnarino Web Learning");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GUIUtente.class.getResource("/Immagini/Legnarino_icon2.png")));
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Legnarino Web Learning");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -59,12 +59,12 @@ public class Home extends JFrame {
 		setBounds(750, 250, 530, 381);
 		
 		setTitle("Legnarino Web Learning");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("H:\\DESKTOP\\Legnarino_icon2.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Home.class.getResource("/Immagini/Legnarino_icon2.png")));
 		getContentPane().setLayout(null);
 		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setIcon(new ImageIcon("H:\\DESKTOP\\ProvaLogo4.png"));
-		lblLogo.setBounds(168, 8, 150, 108);
+		lblLogo.setIcon(new ImageIcon(Home.class.getResource("/Immagini/LogoLogin2.png")));
+		lblLogo.setBounds(48, -16, 437, 200);
 		getContentPane().add(lblLogo);		
 		
 		JLabel lblRegisterSuccesful = new JLabel("");
@@ -76,7 +76,7 @@ public class Home extends JFrame {
 		
 		JPanel panelForm = new JPanel();
 		panelForm.setBackground(Color.WHITE);
-		panelForm.setBounds(77, 156, 335, 144);
+		panelForm.setBounds(70, 187, 335, 144);
 		getContentPane().add(panelForm);
 		panelForm.setLayout(null);
 		
@@ -151,12 +151,6 @@ public class Home extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(139, 74, 145, 20);
 		panelForm.add(passwordField);
-		
-		JLabel lblLogin= new JLabel("Login");
-		lblLogin.setBounds(199, 109, 91, 36);
-		getContentPane().add(lblLogin);
-		lblLogin.setForeground(new Color(51, 102, 255));
-		lblLogin.setFont(new Font("Lucida Bright", Font.BOLD, 30));
 		if (controller.fromRegister && controller.getregisterSuccesful()) {
 			controller.fromRegister=false;
 			lblRegisterSuccesful.setText("Registrazione avvenuta con successo!");
