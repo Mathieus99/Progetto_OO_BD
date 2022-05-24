@@ -11,7 +11,7 @@ public class Test {
     private int punteggioDomandeMin;
     private int punteggioDomandeMax;
     private String categoria;
-    private ArrayList<Domanda> domande;
+    private ArrayList<Domanda> domande = new ArrayList<Domanda>();
     private Insegnante proprietario;
     
     /*--------------------------------------------------------------IMPOSTA IL TEST-------------------------------------------------------------*/

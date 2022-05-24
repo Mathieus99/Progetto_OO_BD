@@ -57,9 +57,8 @@ public class Registrazione extends JFrame {
 	private JTextField textFieldEmailConferma;
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldConferma;
-	private JTextField textFieldMatricola;
 	
-	public Registrazione(Controller c, JFrame accesso, String ruolo){
+	public Registrazione(Controller c, JFrame accesso){
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Legnarino Web Learning");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Registrazione.class.getResource("/Immagini/Legnarino_icon2.png")));
@@ -135,12 +134,6 @@ public class Registrazione extends JFrame {
 		passwordFieldConferma.setBounds(456, 143, 145, 20);
 		getContentPane().add(passwordFieldConferma);
 		
-		textFieldMatricola = new JTextField();
-		textFieldMatricola.setFont(new Font("Lucida Bright", Font.PLAIN, 13));
-		textFieldMatricola.setBounds(128, 223, 145, 20);
-		getContentPane().add(textFieldMatricola);
-		textFieldMatricola.setColumns(10);
-		
 		JLabel lblNomeError = new JLabel("");
 		lblNomeError.setForeground(Color.RED);
 		lblNomeError.setFont(new Font("Lucida Bright", Font.BOLD, 11));
@@ -175,13 +168,7 @@ public class Registrazione extends JFrame {
 		lblEmailConfError.setForeground(Color.RED);
 		lblEmailConfError.setFont(new Font("Lucida Bright", Font.BOLD, 11));
 		lblEmailConfError.setBounds(454, 198, 166, 14);
-		getContentPane().add(lblEmailConfError);		
-		
-		JLabel lblMatricolaError = new JLabel("");
-		lblMatricolaError.setForeground(Color.RED);
-		lblMatricolaError.setFont(new Font("Lucida Bright", Font.BOLD, 11));
-		lblMatricolaError.setBounds(283, 229, 176, 14);
-		getContentPane().add(lblMatricolaError);
+		getContentPane().add(lblEmailConfError);
 				
 		JButton btnRegistrazione = new JButton("Registrati");
 		btnRegistrazione.addActionListener(new ActionListener() {
@@ -192,7 +179,6 @@ public class Registrazione extends JFrame {
 				lblEmailConfError.setText("");
 				lblPswError.setText("");
 				lblPswConfError.setText("");
-				lblMatricolaError.setText("");
 				boolean ok=true;
 				if(textFieldNome.getText().contentEquals("")) {
 					lblNomeError.setText("Inserisci il nome!");
@@ -228,12 +214,9 @@ public class Registrazione extends JFrame {
 					lblPswConfError.setText("Le password sono diverse!");
 					ok=false;
 				}
-				if(!textFieldMatricola.getText().contains("N86") || textFieldMatricola.getText().length()!=9) {
-					lblMatricolaError.setText("Matricola non valida!");
-					ok=false;
-				}
+				
 				if(ok) { 
-					controller.registraStudente(textFieldNome.getText(), textFieldCognome.getText(), passwordField.getText(), textFieldEmail.getText(), textFieldMatricola.getText());
+					controller.registrazione(textFieldNome.getText(), textFieldCognome.getText(), passwordField.getText(), textFieldEmail.getText());
 					controller.setRegisterSuccesful(ok);
 					controller.fromRegister=true;
 					frame.setVisible(false);
@@ -262,7 +245,7 @@ public class Registrazione extends JFrame {
 		lblNewLabel.setBounds(46, 310, 398, 14);
 		getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("**Inserire solo email \"@studenti.unina.it\" o \"@unina.it\"");
+		JLabel lblNewLabel_1 = new JLabel("**Inserire solo email \"@Studenti.Universita.it\" o \"@Docenti.Universita.it\"");
 		lblNewLabel_1.setBounds(46, 325, 410, 14);
 		getContentPane().add(lblNewLabel_1);
 		
@@ -277,10 +260,5 @@ public class Registrazione extends JFrame {
 		btnAnnulla.setFont(new Font("Lucida Bright", Font.BOLD, 16));
 		btnAnnulla.setBounds(390, 254, 125, 35);
 		getContentPane().add(btnAnnulla);
-		
-		JLabel lblMatricola = new JLabel("Matricola");
-		lblMatricola.setFont(new Font("Lucida Bright", Font.BOLD, 16));
-		lblMatricola.setBounds(46, 223, 77, 20);
-		getContentPane().add(lblMatricola);
 	}
 }

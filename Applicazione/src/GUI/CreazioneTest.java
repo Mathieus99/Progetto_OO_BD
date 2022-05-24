@@ -31,15 +31,16 @@ import java.awt.event.InputMethodEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JEditorPane;
+import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CreazioneTest extends JFrame {
 	JFrame frame;
 	JFrame guiUtente;
 	JFrame accessoapp;
 	private Controller controller;
-	private JTextField textFieldNumDomande;
 	private JTextField textField;
-	private int i;
 
 	public CreazioneTest(Controller c, JFrame guiUtente, JFrame accesso) {
 		setTitle("Legnarino Web Learning");
@@ -52,101 +53,65 @@ public class CreazioneTest extends JFrame {
 		setContentPane(contentPane);
 		frame=this;
 		controller=c;
+		accessoapp=accesso;
+		this.guiUtente = guiUtente;
 		contentPane.setLayout(null);
 		
-		/*----------------------------------------------PANNELLO VISUALIZZAZIONE DATI DOCENTE-------------------------------------------------------*/
-		JPanel panelUtente = new JPanel();
-		panelUtente.setBounds(10, 11, 236, 72);
-		getContentPane().add(panelUtente);
-		panelUtente.setLayout(null);
+		JPanel panelUser = new JPanel();
+		panelUser.setBackground(Color.WHITE);
+		panelUser.setBounds(10, 11, 149, 155);
+		contentPane.add(panelUser);
 		
-		JLabel lblEmail = new JLabel("");
-		lblEmail.setBounds(10, 29, 203, 16);
-		lblEmail.setFont(new Font("Lucida Bright", Font.PLAIN, 12));
-		panelUtente.add(lblEmail);
-		//lblEmail.setText(controller.emailD());
+		JLabel lblIcon = new JLabel("");
+		lblIcon.setIcon(new ImageIcon(CreazioneTest.class.getResource("/Immagini/User_Iconv2_2.png")));
+		panelUser.add(lblIcon);
 		
-		JPanel panelNomeUtente = new JPanel();
-		panelNomeUtente.setBackground(new Color(0, 102, 255));
-		panelNomeUtente.setBorder(null);
-		panelNomeUtente.setBounds(0, 0, 236, 28);
-		panelUtente.add(panelNomeUtente);
+		JLabel lblNome = new JLabel((String) null);
+		lblNome.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panelUser.add(lblNome);
+		lblNome.setText(controller.nomeD());
 		
-		JLabel lblNome = new JLabel("");
-		lblNome.setForeground(new Color(255, 153, 0));
-		lblNome.setFont(new Font("Lucida Bright", Font.BOLD, 13));
-		panelNomeUtente.add(lblNome);
-		//lblNome.setText(controller.nomeD());
+		JLabel lblCognome = new JLabel((String) null);
+		lblCognome.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panelUser.add(lblCognome);
+		lblCognome.setText(controller.cognomeD());
 		
-		JLabel lblCognome = new JLabel("");
-		lblCognome.setForeground(new Color(255, 153, 0));
-		lblCognome.setFont(new Font("Lucida Bright", Font.BOLD, 13));
-		panelNomeUtente.add(lblCognome);
-		//lblCognome.setText(controller.cognomeD());
-		/*------------------------------------------------------------------------------------------------------------------------------------------*/
-		
-		/*---------------------------------------------------------TITOLO FINESTRA------------------------------------------------------------------*/
 		JPanel panelTitolo = new JPanel();
-		panelTitolo.setBounds(372, 25, 236, 39);
 		panelTitolo.setBackground(Color.WHITE);
+		panelTitolo.setBounds(345, 11, 228, 47);
 		contentPane.add(panelTitolo);
 		
-		JLabel lblCreazione = new JLabel("Creazione");
-		panelTitolo.add(lblCreazione);
-		lblCreazione.setForeground(new Color(51, 102, 255));
-		lblCreazione.setFont(new Font("Lucida Bright", Font.BOLD, 30));
+		JLabel lblTitolo = new JLabel("Creazione");
+		lblTitolo.setForeground(new Color(255, 153, 0));
+		lblTitolo.setFont(new Font("Tahoma", Font.BOLD, 30));
+		panelTitolo.add(lblTitolo);
 		
-		JLabel lblTest = new JLabel("Test");
-		panelTitolo.add(lblTest);
-		lblTest.setForeground(new Color(255, 153, 0));
-		lblTest.setFont(new Font("Lucida Bright", Font.BOLD, 30));
-		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		JLabel lblTitolo2 = new JLabel("Test");
+		lblTitolo2.setForeground(new Color(51, 102, 255));
+		lblTitolo2.setFont(new Font("Tahoma", Font.BOLD, 30));
+		panelTitolo.add(lblTitolo2);
 		
-		/*--------------------------------------------------------------BODY------------------------------------------------------------------------*/
-		JScrollPane scrollPaneBody = new JScrollPane();
-		scrollPaneBody.setBounds(10, 94, 886, 505);
-		scrollPaneBody.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		contentPane.add(scrollPaneBody);
-		
-		JPanel panelBody = new JPanel();
-		scrollPaneBody.setViewportView(panelBody);
-		panelBody.setLayout(null);
-		
-		JLabel lblNumDomande = new JLabel("Numero di domande:");
-		lblNumDomande.setBounds(10, 11, 170, 14);
-		lblNumDomande.setFont(new Font("Lucida Bright", Font.BOLD, 16));
-		panelBody.add(lblNumDomande);
-		
-		JLabel lblNumDomandeError = new JLabel("");
-		lblNumDomandeError.setForeground(Color.RED);
-		lblNumDomandeError.setFont(new Font("Lucida Bright", Font.BOLD, 13));
-		lblNumDomandeError.setBounds(226, 12, 170, 14);
-		panelBody.add(lblNumDomandeError);
-		
-		textFieldNumDomande = new JTextField();
-		textFieldNumDomande.addInputMethodListener(new InputMethodListener() {
-			public void inputMethodTextChanged(InputMethodEvent event) {
-				lblNumDomandeError.setText("");
-				if (!textFieldNumDomande.getText().matches("-?\\d+")) //Errore se input non è un numero
-					lblNumDomandeError.setText("Deve essere un numero!");
-				else {
-					//Inserisci i form per le domande
-													
-				}
-			}
-
+		JButton btnAnnulla = new JButton("Annulla");
+		btnAnnulla.addMouseListener(new MouseAdapter() {
 			@Override
-			public void caretPositionChanged(InputMethodEvent event) {
-				lblNumDomandeError.setText("Successo Qualcosa");				
+			public void mousePressed(MouseEvent e) {
+				btnAnnulla.setForeground(new Color(51, 102, 255));
+				btnAnnulla.setBackground(new Color(255, 153, 0));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnAnnulla.setForeground(new Color(255, 153, 0));
+				btnAnnulla.setBackground(new Color(51, 102, 255));
+				frame.setVisible(false);
+				guiUtente.setVisible(true);
 			}
 		});
+		btnAnnulla.setForeground(new Color(255, 153, 0));
+		btnAnnulla.setBackground(new Color(51, 102, 255));
+		btnAnnulla.setFont(new Font("Trebuchet MS", Font.BOLD, 23));
+		btnAnnulla.setBounds(10, 177, 149, 31);
+		contentPane.add(btnAnnulla);
 		
-		textFieldNumDomande.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldNumDomande.setFont(new Font("Lucida Bright", Font.BOLD, 16));
-		textFieldNumDomande.setBounds(180, 8, 36, 20);
-		panelBody.add(textFieldNumDomande);
-		textFieldNumDomande.setColumns(10);
-				
 		/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	}
 }

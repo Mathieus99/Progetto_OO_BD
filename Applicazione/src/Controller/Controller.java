@@ -1,17 +1,14 @@
 package Controller;
 
-import Model.Insegnante;
-import Model.Studente;
-import Model.Test;
-import Database.ConnessioneDatabase;
-import Model.Domanda;
+import Model.*;
+import DAO.*;
+import Database.*;
 
 public class Controller {
-	
 	// TODO creare Arraylist con tutti gli elementi presi dal DB
 	
-	private Studente s;
-	private Insegnante i;
+	private Studente s = new Studente();
+	private Insegnante i = new Insegnante();
 	private Test t;
 	private String ruolo;
 	private Domanda d;
@@ -19,22 +16,32 @@ public class Controller {
 	private boolean registerSuccesful;
 	public boolean fromRegister=false;
 	public boolean back=false;
-	
-	
-	/*----------------------------------------------------------REGISTRAZIONE UTENTI-----------------------------------------------------------*/
-	public void registraDocente (String nome, String cognome,String password, String email){
+		
+	/*----------------------------------------------------------REGISTRAZIONE E FUNZIONI LOGOUT UTENTI------------------------------------------*/
+		
+	public void registrazione (String nome, String cognome,String password, String email){
 		i.setNome(nome);
 		i.setCognome(cognome);
 		i.setPassword(password);
 		i.setEmail(email);
 	}	
-	public void registraStudente (String nome, String cognome, String password, String email, String matricola) {
-		s.setNome(nome);
-		s.setCognome(cognome);
-		s.setPassword(password);
-		s.setEmail(email);
-		s.setMatricola(matricola);
+	
+	public void logout(Studente s) {
+		s = null;
 	}
+	
+	public void logout(Insegnante i) {
+		i = null;
+	}
+	
+	public Studente getStudente() {
+		return s;
+	}
+	
+	public Insegnante getDocente() {
+		return i;
+	}
+	
 	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*--------------------------------------------------PRELEVA E SETTA IL RUOLO DEGLI UTENTI--------------------------------------------------*/
@@ -47,9 +54,6 @@ public class Controller {
 	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*-------------------------------------------------SETTA I DATI DEGLI UTENTI NELLE FINESTRE------------------------------------------------*/
-	public String matricolaStudente() {
-		return s.getMatricola();
-	}	
 	public String emailS() {
 		return s.getEmail();
 	}	
@@ -70,6 +74,7 @@ public class Controller {
 	}
 	/*-------------------------------------------------------------------------------------------------------------------------------------------*/
 	
+	/*------------------------------------------------CONTROLLA LO STATO DELLA REGISTRAZIONE-----------------------------------------------------*/
 	public void setRegisterSuccesful(boolean registerSuccesful) {
 		this.registerSuccesful=registerSuccesful;
 		fromRegister=true;
@@ -78,6 +83,32 @@ public class Controller {
 		return registerSuccesful;
 	}
 	
+	/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	/*-----------------------------------------------SETTA L'UTENTE CON I DATI DEL DB------------------------------------------------------------*/
+	
+	public void setUtente(String email,String pass) {
+		StudenteDAO student = new StudenteDAO();
+		InsegnanteDAO insegnante = new InsegnanteDAO();
+		if (email.contains("@Studenti.Universita.it")) {
+			s = student.login(email, pass);
+			ruolo = "Studente";
+		}
+		else {
+			i = insegnante.login(email, pass);
+			ruolo = "Insegnante";
+		}
+	}
+	
+	public boolean checkUtente() {
+		if(s.getNome() == null && i.getNome() == null) {
+			return false;
+		}
+		else 
+			return true;
+	}
+	/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+		
 	/*-------------------------------------------------------------GESTIONE DEI TEST--------------------------------------------------------------*/
 	public void setNumDomande(int nDomande) {
 		t.setNumeroDomande(nDomande);
@@ -89,6 +120,8 @@ public class Controller {
 		
 	}
 	
-	
-	/*--------------------------------------------------------------------------------------------------------------------------------------------*/	
+	/*--------------------------------------------------------------------------------------------------------------------------------------------*/
+	public void setConnessione(ConnessioneDatabase connessione) {
+		this.connessione = connessione;
+	}
 }

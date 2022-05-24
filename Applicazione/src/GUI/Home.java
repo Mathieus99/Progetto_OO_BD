@@ -56,7 +56,7 @@ public class Home extends JFrame {
 	public void initialize() {
 		frame=this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(750, 250, 530, 381);
+		setBounds(750, 250, 530, 401);
 		
 		setTitle("Legnarino Web Learning");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Home.class.getResource("/Immagini/Legnarino_icon2.png")));
@@ -65,13 +65,12 @@ public class Home extends JFrame {
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setIcon(new ImageIcon(Home.class.getResource("/Immagini/LogoLogin2.png")));
 		lblLogo.setBounds(48, -16, 437, 200);
-		getContentPane().add(lblLogo);		
-		
+		getContentPane().add(lblLogo);
 		JLabel lblRegisterSuccesful = new JLabel("");
 		lblRegisterSuccesful.setForeground(new Color(51, 102, 255));
 		lblRegisterSuccesful.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegisterSuccesful.setFont(new Font("Lucida Bright", Font.BOLD, 13));
-		lblRegisterSuccesful.setBounds(89, 311, 328, 20);
+		lblRegisterSuccesful.setBounds(70, 331, 335, 20);
 		getContentPane().add(lblRegisterSuccesful);
 		
 		JPanel panelForm = new JPanel();
@@ -81,19 +80,27 @@ public class Home extends JFrame {
 		panelForm.setLayout(null);
 		
 		textFieldUsername = new JTextField();
-		textFieldUsername.setBounds(139, 28, 145, 20);
+		textFieldUsername.setBounds(84, 28, 241, 20);
 		panelForm.add(textFieldUsername);
 		textFieldUsername.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setBounds(62, 30, 70, 14);
+		lblUsername.setBounds(10, 30, 70, 14);
 		panelForm.add(lblUsername);
 		lblUsername.setFont(new Font("Lucida Bright", Font.BOLD, 13));
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(62, 76, 70, 14);
+		lblPassword.setBounds(10, 76, 70, 14);
 		panelForm.add(lblPassword);
 		lblPassword.setFont(new Font("Lucida Bright", Font.BOLD, 13));
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(84, 74, 241, 20);
+		panelForm.add(passwordField);
+		if (controller.fromRegister && controller.getregisterSuccesful()) {
+			controller.fromRegister=false;
+			lblRegisterSuccesful.setText("Registrazione avvenuta con successo!");
+		}
 		
 		JLabel lblPswError = new JLabel("");
 		lblPswError.setBounds(139, 59, 145, 14);
@@ -112,22 +119,35 @@ public class Home extends JFrame {
 		panelForm.add(btnAccedi);
 		btnAccedi.setBackground(Color.WHITE);
 		btnAccedi.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
+				lblRegisterSuccesful.setText("");
 				boolean no=true;
 				JFrame frameGUIUtente;
 				//TODO Inserire controllo sugli utenti registrati per l'accesso
 				if (textFieldUsername.getText().contentEquals("") && !controller.back) {
 					lblUsernameError.setText("Inserisci username!");
 					no=false;
-				}			
+				}
+				
 				if (passwordField.getText().contentEquals("") && !textFieldUsername.getText().contentEquals("")) {
-					lblPswError.setText("Password errata!");
+					lblPswError.setText("Inserisci Password!");
 					no=false;
 				}
+				
+				controller.setUtente(textFieldUsername.getText(), passwordField.getText());
+								
+				if(!controller.checkUtente()) {
+					lblRegisterSuccesful.setText("Utente non trovato!");
+					no=false;
+				}
+				
 				if(no==true) {
-					//if(controller.getRuolo().contentEquals("Studente")) {frameGUIUtente=new GUIUtente (controller, frame);}
-					//else {frameGUIUtente=new GUIDocente (controller, frame);}
-					frameGUIUtente=new GUIDocente(controller, frame);
+					if(controller.getRuolo().contentEquals("Studente")) 
+						frameGUIUtente=new GUIUtente (controller, frame);
+					else 
+						frameGUIUtente=new GUIDocente (controller, frame);		
+
 					frame.setVisible(false);
 					frameGUIUtente.setVisible(true);
 				}
@@ -141,19 +161,11 @@ public class Home extends JFrame {
 		btnRegistrati.setBackground(Color.WHITE);
 		btnRegistrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame frameSelezione=new SelezioneRuolo (controller, frame);
+				JFrame frameRegistrazione=new Registrazione (controller, frame);
 				frame.setVisible(false);
-				frameSelezione.setVisible(true);
+				frameRegistrazione.setVisible(true);
 			}
 		});
 		btnRegistrati.setFont(new Font("Lucida Bright", Font.BOLD | Font.ITALIC, 11));
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(139, 74, 145, 20);
-		panelForm.add(passwordField);
-		if (controller.fromRegister && controller.getregisterSuccesful()) {
-			controller.fromRegister=false;
-			lblRegisterSuccesful.setText("Registrazione avvenuta con successo!");
-		}
 	}
 }

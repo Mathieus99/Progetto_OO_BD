@@ -8,15 +8,24 @@ public class Insegnante{
 	private String Cognome;
 	private String Password;
 	private String Email;
-	private ArrayList<Test> testCreati;
+	private ArrayList<Test> testCreati = new ArrayList<Test>();
 	
 	/*-------------------------------------------------------------------REGISTRA IL DOCENTE---------------------------------------------------*/
+	
+	public void Insegnante() {
+		Nome = null;
+		Cognome = null;
+		Password = null;
+		Email = null;
+	}
+	
 	public void registraInsegnante(String nome, String cognome, String password, String email) {
 		this.Nome = nome;
 		this.Cognome = cognome;
 		this.Password = password;
 		this.Email = email;
 	}
+		
 	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*---------------------------------------------------------SETTA E RESTITUISCE I DATI DEL DOCENTE------------------------------------------*/

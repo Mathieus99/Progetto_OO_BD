@@ -7,20 +7,16 @@ public class Studente{
 	private String Cognome;
 	private String Password;
 	private String Email;
-	private String Matricola;
-	private ArrayList<IstanzaDiTest> testSostenuti;
-	
-	/*------------------------------------------------------------REGISTRA L'UTENTE------------------------------------------------------------*/
-	public void registraStudente(String nome, String cognome, String password, String email,String matricola){
-		this.Nome = nome;
-		this.Cognome = cognome;
-		this.Password = password;	
-		this.Email = email;
-		this.Matricola= matricola;
-	}
-	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+	private ArrayList<IstanzaDiTest> testSostenuti = new ArrayList<IstanzaDiTest>();
 	
 	/*-------------------------------------------------SETTA E RESTITUISCE I DATI DEGLI STUDENTI-----------------------------------------------*/
+	
+	public Studente() {
+		Nome = null;
+		Cognome = null;
+		Password = null;
+		Email = null;
+	}
 	
 	public String getNome() {
 		return Nome;
@@ -49,12 +45,7 @@ public class Studente{
 	public void setEmail(String email) {
 		this.Email = email;
 	}	
-	public void setMatricola(String matricola) {
-		this.Matricola=matricola;
-	}
-	public String getMatricola() {
-		return this.Matricola;
-	}
+	
 	public ArrayList<IstanzaDiTest> getTestSostenuti() {
 		return testSostenuti;
 	}
