@@ -11,7 +11,6 @@ Ogni utente, sia studente che insegnante, si deve registrare nell'apposita sezio
 - Cognome
 - Email
 - Password
-- Matricola (per gli studenti)
 
 ## 📝Test
 Nella sezione dedicata ai **_Test_**:
@@ -21,7 +20,7 @@ Nella sezione dedicata ai **_Test_**:
 👨‍🎓 Gli studenti possono visualizzare e svolgere i test, oltre che visualizzare i risultati ottenuti.
 
 ## 📊 Diagrammi UML
-Nella cartella **_Diagrammi App_** sono inseriti i diagrammi del dominio del problema e della soluzione.
+Nella cartella **_Diagrammi App_** sono inseriti i diagrammi del dominio del problema, della soluzione e i sequence diagram.
 
 ## 📀 Codice Sorgente
 Il codice sorgente è inserito nella cartella **_src_**.
