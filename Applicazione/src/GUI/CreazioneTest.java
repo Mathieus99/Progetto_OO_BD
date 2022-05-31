@@ -41,6 +41,8 @@ public class CreazioneTest extends JFrame {
 	JFrame accessoapp;
 	private Controller controller;
 	private JTextField textField;
+	private JTextField textFieldNomeTest;
+	private JTextField textFieldMateria;
 
 	public CreazioneTest(Controller c, JFrame guiUtente, JFrame accesso) {
 		setTitle("Legnarino Web Learning");
@@ -63,7 +65,10 @@ public class CreazioneTest extends JFrame {
 		contentPane.add(panelUser);
 		
 		JLabel lblIcon = new JLabel("");
-		lblIcon.setIcon(new ImageIcon(CreazioneTest.class.getResource("/Immagini/User_Iconv2_2.png")));
+		if (controller.getDocente().getNome().contentEquals("Porfirio"))
+			lblIcon.setIcon(new ImageIcon(CreazioneTest.class.getResource("/Immagini/User_Icon_Porfirio.png")));
+		else
+			lblIcon.setIcon(new ImageIcon(CreazioneTest.class.getResource("/Immagini/User_Iconv2_2.png")));
 		panelUser.add(lblIcon);
 		
 		JLabel lblNome = new JLabel((String) null);
@@ -111,6 +116,60 @@ public class CreazioneTest extends JFrame {
 		btnAnnulla.setFont(new Font("Trebuchet MS", Font.BOLD, 23));
 		btnAnnulla.setBounds(10, 177, 149, 31);
 		contentPane.add(btnAnnulla);
+		
+		JPanel panelDatiTest = new JPanel();
+		panelDatiTest.setBackground(new Color(51, 102, 255));
+		panelDatiTest.setBounds(187, 89, 461, 59);
+		contentPane.add(panelDatiTest);
+		panelDatiTest.setLayout(null);
+		
+		textFieldNomeTest = new JTextField();
+		textFieldNomeTest.setBounds(10, 30, 175, 20);
+		panelDatiTest.add(textFieldNomeTest);
+		textFieldNomeTest.setColumns(10);
+		
+		JLabel lblNomeTest = new JLabel("Nome Test");
+		lblNomeTest.setForeground(new Color(255, 153, 0));
+		lblNomeTest.setBounds(10, 11, 75, 14);
+		panelDatiTest.add(lblNomeTest);
+		lblNomeTest.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		textFieldMateria = new JTextField();
+		textFieldMateria.setBounds(267, 30, 175, 20);
+		panelDatiTest.add(textFieldMateria);
+		textFieldMateria.setColumns(10);
+		
+		JLabel lblMateria = new JLabel("Materia");
+		lblMateria.setForeground(new Color(255, 153, 0));
+		lblMateria.setBounds(267, 11, 57, 14);
+		panelDatiTest.add(lblMateria);
+		lblMateria.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		JPanel panelDomandeTest = new JPanel();
+		panelDomandeTest.setBounds(187, 177, 709, 422);
+		contentPane.add(panelDomandeTest);
+		
+		JButton btnAddDomanda = new JButton("Aggiungi Domanda");
+		btnAddDomanda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnAddDomanda.setForeground(new Color(51, 102, 255));
+				btnAddDomanda.setBackground(new Color(255, 153, 0));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnAddDomanda.setForeground(new Color(255, 153, 0));
+				btnAddDomanda.setBackground(new Color(51, 102, 255));
+				JFrame guiAggiungiDomanda = new AggiungiDomanda(c, frame);
+				frame.setVisible(false);
+				guiAggiungiDomanda.setVisible(true);				
+			}
+		});
+		btnAddDomanda.setForeground(new Color(255, 153, 0));
+		btnAddDomanda.setBackground(new Color(51, 102, 255));
+		btnAddDomanda.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnAddDomanda.setBounds(658, 89, 228, 59);
+		contentPane.add(btnAddDomanda);
 		
 		/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	}

@@ -4,34 +4,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Test {
-    private long idTest;
+	private long idTest;
     private String titolo;
-    private int maxPunteggio;
-    private int numeroDomande;
-    private int punteggioDomandeMin;
-    private int punteggioDomandeMax;
+    private double maxPunteggio;
+    private double numeroDomande;
+    private double punteggioDomandeMin;
+    private double punteggioDomandeMax;
     private String categoria;
     private ArrayList<Domanda> domande = new ArrayList<Domanda>();
     private Insegnante proprietario;
-    
-    /*--------------------------------------------------------------IMPOSTA IL TEST-------------------------------------------------------------*/
-	public Test(long idTest,String titolo, int maxPunteggio, int numeroDomande, int punteggioDomandeMin, int punteggioDomandeMax,
-		   String categoria, Insegnante proprietario) {
-		super();
-		this.idTest = idTest;
-		this.titolo = titolo;
-		this.maxPunteggio = maxPunteggio;
-		this.numeroDomande = numeroDomande;
-		this.punteggioDomandeMin = punteggioDomandeMin;
-		this.punteggioDomandeMax = punteggioDomandeMax;
-		this.categoria = categoria;
-		this.proprietario = proprietario;
-	}
-	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
-	
+    	
 	/*----------------------------------------------IMPOSTA E RESTITUISCE I SINGOLI DATI DEL TEST----------------------------------------------*/
-	public void setDomande(Domanda d)
-	{
+	public void addDomande(Domanda d){
 		domande.add(d);
 	}
 
@@ -43,35 +27,35 @@ public class Test {
 		this.idTest = idTest;
 	}
 
-	public int getMaxPunteggio() {
+	public double getMaxPunteggio() {
 		return maxPunteggio;
 	}
 
-	public void setMaxPunteggio(int maxPunteggio) {
+	public void setMaxPunteggio(double maxPunteggio) {
 		this.maxPunteggio = maxPunteggio;
 	}
 
-	public int getNumeroDomande() {
+	public double getNumeroDomande() {
 		return numeroDomande;
 	}
 
-	public void setNumeroDomande(int numeroDomande) {
+	public void setNumeroDomande(double numeroDomande) {
 		this.numeroDomande = numeroDomande;
 	}
 
-	public int getPunteggioDomandeMin() {
+	public double getPunteggioDomandeMin() {
 		return punteggioDomandeMin;
 	}
 
-	public void setPunteggioDomandeMin(int punteggioDomandeMin) {
+	public void setPunteggioDomandeMin(double punteggioDomandeMin) {
 		this.punteggioDomandeMin = punteggioDomandeMin;
 	}
 
-	public int getPunteggioDomandeMax() {
+	public double getPunteggioDomandeMax() {
 		return punteggioDomandeMax;
 	}
 
-	public void setPunteggioDomandeMax(int punteggioDomandeMax) {
+	public void setPunteggioDomandeMax(double punteggioDomandeMax) {
 		this.punteggioDomandeMax = punteggioDomandeMax;
 	}
 
@@ -99,12 +83,20 @@ public class Test {
 		this.proprietario = proprietario;
 	}
 
-	public ArrayList<IstanzaDiTest> getTestSostenuti() {
-		return testSostenuti;
+	public String getTitolo() {
+		return titolo;
 	}
 
-	public void setTestSostenuti(ArrayList<IstanzaDiTest> testSostenuti) {
-		this.testSostenuti = testSostenuti;
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
 	}
+
+	@Override
+	public String toString() {
+		return "Nome Test=" + titolo + ", Punteggio Massimo=" + maxPunteggio + ", Numero Domande="
+				+ numeroDomande + ", punteggio Domande Min=" + punteggioDomandeMin + ", punteggio Domande Max="
+				+ punteggioDomandeMax + ", Materia=" + categoria + "]";
+	}
+
 	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 }

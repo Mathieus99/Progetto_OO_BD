@@ -1,6 +1,9 @@
 package Controller;
 
 import Model.*;
+
+import java.util.ArrayList;
+
 import DAO.*;
 import Database.*;
 
@@ -72,6 +75,10 @@ public class Controller {
 	public String cognomeD() {
 		return i.getCognome();
 	}
+	
+	public ArrayList<Test> getTestDocente(){
+		return i.getTestCreati();
+	}
 	/*-------------------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*------------------------------------------------CONTROLLA LO STATO DELLA REGISTRAZIONE-----------------------------------------------------*/
@@ -113,7 +120,7 @@ public class Controller {
 	public void setNumDomande(int nDomande) {
 		t.setNumeroDomande(nDomande);
 	}
-	public int getNumDomande() {
+	public double getNumDomande() {
 		return t.getNumeroDomande();
 	}
 	public void incrementaID() {

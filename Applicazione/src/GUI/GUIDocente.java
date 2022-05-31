@@ -70,16 +70,16 @@ public class GUIDocente extends JFrame {
 		});
 		lblCreaTestBtn.setBackground(Color.WHITE);
 		lblCreaTestBtn.setIcon(new ImageIcon(GUIDocente.class.getResource("/Immagini/ButtonAppCreaTest.png")));
-		lblCreaTestBtn.setBounds(245, 150, 160, 192);
+		lblCreaTestBtn.setBounds(200, 149, 160, 192);
 		contentPane.add(lblCreaTestBtn);
 		
 		JLabel lblCreaTest = new JLabel("Crea Test");
 		lblCreaTest.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblCreaTest.setBounds(283, 345, 86, 20);
+		lblCreaTest.setBounds(246, 339, 86, 20);
 		contentPane.add(lblCreaTest);
 		
 		JLabel lblCorreggiTest = new JLabel("Correggi Test");
-		lblCorreggiTest.setBounds(451, 165, 86, 37);
+		lblCorreggiTest.setBounds(383, 166, 86, 37);
 		contentPane.add(lblCorreggiTest);
 		
 		JPanel panelUser = new JPanel();
@@ -88,8 +88,11 @@ public class GUIDocente extends JFrame {
 		contentPane.add(panelUser);
 		
 		JLabel lblIcon = new JLabel("");
-		lblIcon.setIcon(new ImageIcon(GUIDocente.class.getResource("/Immagini/User_Iconv2_2.png")));
 		panelUser.add(lblIcon);
+		if(controller.nomeD().contentEquals("Porfirio") && controller.cognomeD().contentEquals("Tramontana"))
+			lblIcon.setIcon(new ImageIcon(GUIDocente.class.getResource("/Immagini/User_Icon_Porfirio.png")));
+		else
+			lblIcon.setIcon(new ImageIcon(GUIDocente.class.getResource("/Immagini/User_Iconv2_2.png")));
 		
 		JLabel lblNome = new JLabel((String) null);
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -100,6 +103,24 @@ public class GUIDocente extends JFrame {
 		lblCognome.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panelUser.add(lblCognome);
 		lblCognome.setText(controller.cognomeD());
+		
+		JLabel lblVisualizzaTestBtn = new JLabel("");
+		lblVisualizzaTestBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFrame frameVisualizzaTest = new VisualizzaTest(controller, frame);
+				frame.setVisible(false);
+				frameVisualizzaTest.setVisible(true);
+			}
+		});
+		lblVisualizzaTestBtn.setIcon(new ImageIcon(GUIDocente.class.getResource("/Immagini/BtnVisualizza Test.png")));
+		lblVisualizzaTestBtn.setBounds(510, 149, 160, 192);
+		contentPane.add(lblVisualizzaTestBtn);
+		
+		JLabel lblNewLabel = new JLabel("Visualizza Test");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(520, 335, 134, 29);
+		contentPane.add(lblNewLabel);
 		/*-------------------------------------------------------------------------------------------------------------------------------------------------------*/
 	}
 }

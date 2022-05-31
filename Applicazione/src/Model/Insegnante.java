@@ -60,8 +60,8 @@ public class Insegnante{
 	public ArrayList<Test> getTestCreati() {
 		return testCreati;
 	}
-	public void setTestCreati(Test t) {
-		testCreati.add(t);
+	public void setTestCreati(ArrayList<Test> t) {
+		testCreati= t;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	
