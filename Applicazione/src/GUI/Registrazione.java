@@ -46,6 +46,7 @@ import javax.swing.JFormattedTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings({ "serial", "unused" , "deprecation"})
 public class Registrazione extends JFrame {
 	private String ruolo;
 	private JFrame frame;
@@ -59,6 +60,7 @@ public class Registrazione extends JFrame {
 	private JPasswordField passwordFieldConferma;
 	
 	public Registrazione(Controller c, JFrame accesso){
+		setResizable(false);
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Legnarino Web Learning");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Registrazione.class.getResource("/Immagini/Legnarino_icon2.png")));
@@ -66,7 +68,6 @@ public class Registrazione extends JFrame {
 		getContentPane().setLayout(null);
 		frame=this;
 		controller=c;
-		this.ruolo=ruolo;
 		accessoapp=accesso;
 		controller.setRuolo(ruolo);
 		

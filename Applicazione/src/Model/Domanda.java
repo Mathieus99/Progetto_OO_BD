@@ -1,15 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Domanda {
     private String testoDomanda;
-	private Test idTest;
-    
-	public Domanda(String testoDomanda, Test idTest) {
-		super();
-		this.testoDomanda = testoDomanda;
-		this.idTest = idTest;
-	}
-
+    private int idDomanda;
+	private long idTest;
+	private String tipo;
+	private ArrayList<Risposta> risposte;
+    	
 	public String getTestoDomanda() {
 		return testoDomanda;
 	}
@@ -18,12 +17,40 @@ public class Domanda {
 		this.testoDomanda = testoDomanda;
 	}
 
-	public Test getIdTest() {
+	public long getIdTest() {
 		return idTest;
 	}
 
-	public void setIdTest(Test idTest) {
+	public void setIdTest(long idTest) {
 		this.idTest = idTest;
+	}
+
+	public int getIdDomanda() {
+		return idDomanda;
+	}
+
+	public void setIdDomanda(int idDomanda) {
+		this.idDomanda = idDomanda;
+	}
+	
+	public void addRisposta(Risposta r) {
+		risposte.add(r);
+	}
+	
+	public void setRisposte(ArrayList<Risposta> risposte) {
+		this.risposte = risposte;
+	}
+	
+	public ArrayList<Risposta> getRisposte(){
+		return risposte;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

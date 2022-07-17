@@ -28,6 +28,7 @@ public class InsegnanteDAO {
 			if (rs.wasNull())
 				return null;
 			while(rs.next()) {
+				i.setIdDocente(rs.getInt("idutente"));
 				i.setNome(rs.getString("nome"));
 				i.setCognome(rs.getString("cognome"));
 				i.setEmail("email");
@@ -47,7 +48,7 @@ public class InsegnanteDAO {
 				t.setPunteggioDomandeMin(rs.getDouble("punteggiodmin"));
 				t.setNumeroDomande(rs.getInt("numdomande"));
 				t.setCategoria(rs.getString("categoria"));
-				t.setProprietario(this.i);
+				t.setProprietario(this.i.getIdDocente());
 				t.setTitolo(rs.getString("nometest"));
 				testLoaded.add(t);
 				
@@ -63,6 +64,19 @@ public class InsegnanteDAO {
 		}			
 	}
 	
+	public int getIdDocente(Insegnante i) {
+		int id = 0;
+		try {
+			PreparedStatement getidins = conn.prepareStatement("SELECT idutente FROM utente WHERE ruolo = 'Insegnante' AND email = '"+i.getEmail()+"' OR nome = '" + i.getNome() + "'");
+			ResultSet rs = getidins.executeQuery();
+			while (rs.next())
+				id = rs.getInt("idutente");
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
 	public void insertInsegnante(Insegnante i) {
 		try {
 			PreparedStatement register = conn.prepareStatement("INSERT INTO utente (nome,cognome,email,password,ruolo) values ('"+ i.getNome() + "','" + i.getCognome() + "','" +i.getEmail() + "','" + i.getPassword() + "','Insegnante')");
@@ -70,5 +84,25 @@ public class InsegnanteDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Insegnante> getListaDocenti(){
+		ArrayList<Insegnante> lista = new ArrayList<Insegnante>();
+		try {
+			PreparedStatement getDocenti = conn.prepareStatement("SELECT * FROM utente WHERE ruolo='Insegnante'");
+			ResultSet rs = getDocenti.executeQuery();
+			while (rs.next()) {
+				Insegnante i = new Insegnante();
+				i.setIdDocente(rs.getInt("idutente"));
+				i.setNome(rs.getString("nome"));
+				i.setCognome(rs.getString("cognome"));
+				i.setEmail(rs.getString("email"));
+				i.setPassword(rs.getString("password"));
+				lista.add(i);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 }

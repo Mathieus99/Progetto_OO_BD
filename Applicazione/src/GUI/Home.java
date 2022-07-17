@@ -23,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 import java.awt.Canvas;
@@ -36,6 +37,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.Button;
 
+@SuppressWarnings({ "serial", "unused" })
 public class Home extends JFrame {
 
 	private Controller controller;
@@ -44,6 +46,7 @@ public class Home extends JFrame {
 	private JPasswordField passwordField;
 	
 	public Home(Controller c) {
+		setResizable(false);
 		getContentPane().setBackground(Color.WHITE);		
 		controller=c;
 		initialize();
@@ -57,8 +60,11 @@ public class Home extends JFrame {
 		frame=this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(750, 250, 530, 401);
+		Dimension dim = getToolkit().getScreenSize();
+		this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+		this.setLocationRelativeTo(null);
 		
-		setTitle("Legnarino Web Learning");
+		setTitle("Legnarino");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Home.class.getResource("/Immagini/Legnarino_icon2.png")));
 		getContentPane().setLayout(null);
 		
@@ -124,6 +130,8 @@ public class Home extends JFrame {
 				lblRegisterSuccesful.setText("");
 				boolean no=true;
 				JFrame frameGUIUtente;
+				controller.caricaDocenti();
+				controller.caricaTest();
 				//TODO Inserire controllo sugli utenti registrati per l'accesso
 				if (textFieldUsername.getText().contentEquals("") && !controller.back) {
 					lblUsernameError.setText("Inserisci username!");

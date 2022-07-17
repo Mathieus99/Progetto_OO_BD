@@ -1,19 +1,19 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Test {
 	private long idTest;
     private String titolo;
+    private String tipo;
     private double maxPunteggio;
     private double numeroDomande;
     private double punteggioDomandeMin;
     private double punteggioDomandeMax;
     private String categoria;
     private ArrayList<Domanda> domande = new ArrayList<Domanda>();
-    private Insegnante proprietario;
-    	
+    private int proprietario;
+        
 	/*----------------------------------------------IMPOSTA E RESTITUISCE I SINGOLI DATI DEL TEST----------------------------------------------*/
 	public void addDomande(Domanda d){
 		domande.add(d);
@@ -30,17 +30,25 @@ public class Test {
 	public double getMaxPunteggio() {
 		return maxPunteggio;
 	}
-
-	public void setMaxPunteggio(double maxPunteggio) {
-		this.maxPunteggio = maxPunteggio;
+	
+	public void setMaxPunteggio(double maxp) {
+		maxPunteggio = maxp;
+	}
+	
+	public void setMaxPunteggio() {
+		maxPunteggio = punteggioDomandeMax * domande.size();
 	}
 
 	public double getNumeroDomande() {
 		return numeroDomande;
 	}
+	
+	public void setNumeroDomande(int nDomande) {
+		numeroDomande = nDomande;
+	}
 
-	public void setNumeroDomande(double numeroDomande) {
-		this.numeroDomande = numeroDomande;
+	public void setNumeroDomande() {
+		numeroDomande = domande.size();
 	}
 
 	public double getPunteggioDomandeMin() {
@@ -75,11 +83,11 @@ public class Test {
 		this.domande = domande;
 	}
 
-	public Insegnante getProprietario() {
+	public int getProprietario() {
 		return proprietario;
 	}
 
-	public void setProprietario(Insegnante proprietario) {
+	public void setProprietario(int proprietario) {
 		this.proprietario = proprietario;
 	}
 
@@ -96,6 +104,14 @@ public class Test {
 		return "Nome Test=" + titolo + ", Punteggio Massimo=" + maxPunteggio + ", Numero Domande="
 				+ numeroDomande + ", punteggio Domande Min=" + punteggioDomandeMin + ", punteggio Domande Max="
 				+ punteggioDomandeMax + ", Materia=" + categoria + "]";
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	/*-----------------------------------------------------------------------------------------------------------------------------------------*/

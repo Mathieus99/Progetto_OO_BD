@@ -1,8 +1,5 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import Controller.Controller;
 import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTable;
@@ -20,23 +19,25 @@ import java.util.ArrayList;
 
 import Model.Test;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
 
+@SuppressWarnings("serial")
 public class VisualizzaTest extends JFrame {
 
 	private JPanel contentPane;
 	private JFrame frame;
 	private Controller controller;
-	private JTable table;
 	private JTable table_1;
 	
 
 	public VisualizzaTest(Controller c, JFrame guiDocente) {
-		setTitle("Legnarino Web Learning");
+		setResizable(false);
+		setBounds(100, 100, 852, 591);
+		Dimension dim = getToolkit().getScreenSize();
+		this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+		this.setLocationRelativeTo(null);
+		setTitle("Legnarino");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VisualizzaTest.class.getResource("/Immagini/Legnarino_icon2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 852, 591);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

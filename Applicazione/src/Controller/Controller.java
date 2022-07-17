@@ -1,21 +1,21 @@
 package Controller;
 
 import Model.*;
-
 import java.util.ArrayList;
-
 import DAO.*;
-import Database.*;
+
 
 public class Controller {
-	// TODO creare Arraylist con tutti gli elementi presi dal DB
 	
 	private Studente s = new Studente();
 	private Insegnante i = new Insegnante();
-	private Test t;
+	private Test t = new Test();
+	private Test testInCorso = new Test();
+	private IstanzaDiTest IdT;
 	private String ruolo;
-	private Domanda d;
-	private ConnessioneDatabase connessione;
+	private Domanda[] domandeTest;
+	private ArrayList<Insegnante> docenti = new ArrayList<Insegnante>();
+	private ArrayList<Test> testInseriti = new ArrayList<Test>();
 	private boolean registerSuccesful;
 	public boolean fromRegister=false;
 	public boolean back=false;
@@ -43,6 +43,14 @@ public class Controller {
 	
 	public Insegnante getDocente() {
 		return i;
+	}
+	
+	public ArrayList<Insegnante> getDocenti(){
+		return docenti;
+	}
+	
+	public ArrayList<Test> getTestInseriti(){
+		return testInseriti;
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
@@ -79,6 +87,11 @@ public class Controller {
 	public ArrayList<Test> getTestDocente(){
 		return i.getTestCreati();
 	}
+	
+	public void addTest(Test t) {
+		i.addTest(t);
+	}
+	
 	/*-------------------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*------------------------------------------------CONTROLLA LO STATO DELLA REGISTRAZIONE-----------------------------------------------------*/
@@ -92,7 +105,7 @@ public class Controller {
 	
 	/*-------------------------------------------------------------------------------------------------------------------------------------------*/
 	
-	/*-----------------------------------------------SETTA L'UTENTE CON I DATI DEL DB------------------------------------------------------------*/
+	/*-----------------------------------------------------------COLLOQUIO CON IL DB-------------------------------------------------------------*/
 	
 	public void setUtente(String email,String pass) {
 		StudenteDAO student = new StudenteDAO();
@@ -114,21 +127,82 @@ public class Controller {
 		else 
 			return true;
 	}
+	
+	public void caricaDocenti() {
+		InsegnanteDAO idao = new InsegnanteDAO();
+		docenti = idao.getListaDocenti();
+	}
+	
+	public void caricaTest() {
+		TestDAO tdao = new TestDAO();
+		testInseriti = tdao.getTest();
+	}
+	
 	/*-------------------------------------------------------------------------------------------------------------------------------------------*/
 		
 	/*-------------------------------------------------------------GESTIONE DEI TEST--------------------------------------------------------------*/
-	public void setNumDomande(int nDomande) {
-		t.setNumeroDomande(nDomande);
+	
+	public void creaTest() {
+		TestDAO tdao = new TestDAO();
+		t.setIdTest(tdao.getMaxId()+1);
 	}
+	
 	public double getNumDomande() {
 		return t.getNumeroDomande();
 	}
-	public void incrementaID() {
-		
+	
+	public void submitCreaTest() {
+		t.setProprietario(i.getIdDocente());
+	}
+	
+	public Test getTest() {
+		return t;
+	}
+	
+	public void resetTest() {
+		t = null;
+	}
+
+	public IstanzaDiTest getIstanzaDiTest() {
+		return IdT;
+	}
+	
+	public void setIstanzaDiTest(Test t,Studente s) {
+		IdT = new IstanzaDiTest(t,s);
+	}
+	
+	public void setIstanzaDiTest(IstanzaDiTest IdT) {
+		this.IdT = IdT; 
+	}
+	
+	public void resetIstanzaDiTest() {
+		IdT.setStato(null);
+		IdT.setPunteggio(0);
+		IdT.setOrarioFine(null);
+	}
+
+	public Test getTestInCorso() {
+		return testInCorso;
+	}
+
+	public void setTestInCorso(Test testInCorso) {
+		this.testInCorso = testInCorso;
+	}
+
+	public Domanda[] getDomandeTest() {
+		return domandeTest;
+	}
+
+	public void setDomandeTest(Domanda[] domandeTest) {
+		this.domandeTest = domandeTest;
+	}
+	
+	public void caricaDomandeTest() {
+		for (int i=0;i<testInCorso.getDomande().size();i++) {
+			domandeTest[i] = testInCorso.getDomande().get(i);
+		}
+			
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------------------------------------*/
-	public void setConnessione(ConnessioneDatabase connessione) {
-		this.connessione = connessione;
-	}
 }

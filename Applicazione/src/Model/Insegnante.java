@@ -3,7 +3,8 @@ package Model;
 import java.util.ArrayList;
 
 public class Insegnante{
-
+	
+	private int id;
 	private String Nome;
 	private String Cognome;
 	private String Password;
@@ -12,20 +13,14 @@ public class Insegnante{
 	
 	/*-------------------------------------------------------------------REGISTRA IL DOCENTE---------------------------------------------------*/
 	
-	public void Insegnante() {
+	public Insegnante() {
+		setIdDocente(0);
 		Nome = null;
 		Cognome = null;
 		Password = null;
 		Email = null;
 	}
 	
-	public void registraInsegnante(String nome, String cognome, String password, String email) {
-		this.Nome = nome;
-		this.Cognome = cognome;
-		this.Password = password;
-		this.Email = email;
-	}
-		
 	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*---------------------------------------------------------SETTA E RESTITUISCE I DATI DEL DOCENTE------------------------------------------*/
@@ -33,13 +28,19 @@ public class Insegnante{
 	public String getNome() {
 		return Nome;
 	}
+	
 	public void setNome(String nome) {
 		this.Nome = nome;
+	}
+	
+	public void setNome(CharSequence nome) {
+		this.Nome = (String) nome;
 	}
 	
 	public String getCognome() {
 		return Cognome;
 	}
+	
 	public void setCognome(String cognome) {
 		this.Cognome = cognome;
 	}
@@ -47,6 +48,7 @@ public class Insegnante{
 	public String getPassword() {
 		return Password;
 	}
+	
 	public void setPassword(String password) {
 		this.Password = password;
 	}
@@ -54,15 +56,37 @@ public class Insegnante{
 	public String getEmail() {
 		return Email;
 	}
+	
 	public void setEmail(String email) {
 		this.Email = email;
 	}
+	
 	public ArrayList<Test> getTestCreati() {
 		return testCreati;
 	}
+	
 	public void setTestCreati(ArrayList<Test> t) {
 		testCreati= t;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 	
+	public void addTest(Test t) {
+		testCreati.add(t);
+	}
+	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+
+	public int getIdDocente() {
+		return id;
+	}
+
+	public void setIdDocente(int id) {
+		this.id = id;
+	}
+	
+	/*---------------------------------------------------NOME E COGNOME COME STRINGA-----------------------------------------------------------*/
+	
+	public String toString() {
+		return Nome + " " + Cognome;
+	}
+	
+	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
 }

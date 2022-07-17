@@ -1,23 +1,12 @@
 package Model;
 
 public class Risposta {
+	
+	private int idRisposta;
+	private int idDomanda;
     private String testoRisposta;
-    private String stato;
-    private IstanzaDiTest idIstanzaDiTest;
-    private Domanda domandaRisposta;
+    private boolean corretta;
     
-    public final static String ERRATO = "ERRATO";
-    public final static String CORRETTO = "CORRETTO";
-    public final static String NON_VALUTATO = "NON VALUTATO";
-
-	public Risposta(String testoRisposta, IstanzaDiTest idIstanzaDiTest, Domanda domandaRisposta) {
-		super();
-		this.testoRisposta = testoRisposta;
-		this.stato = Risposta.NON_VALUTATO;
-		this.idIstanzaDiTest = idIstanzaDiTest;
-		this.domandaRisposta = domandaRisposta;
-	}
-
 	public String getTestoRisposta() {
 		return testoRisposta;
 	}
@@ -26,29 +15,27 @@ public class Risposta {
 		this.testoRisposta = testoRisposta;
 	}
 
-	public String getStato() {
-		return stato;
+	public boolean isCorretta() {
+		return corretta;
 	}
 
-	public void setStato(String stato) {
-		this.stato = stato;
+	public void setCorretta(boolean corretta) {
+		this.corretta = corretta;
 	}
 
-	public IstanzaDiTest getIdIstanzaDiTest() {
-		return idIstanzaDiTest;
+	public int getIdDomanda() {
+		return idDomanda;
 	}
 
-	public void setIdIstanzaDiTest(IstanzaDiTest idIstanzaDiTest) {
-		this.idIstanzaDiTest = idIstanzaDiTest;
+	public void setIdDomanda(int idDomanda) {
+		this.idDomanda = idDomanda;
+	}
+	
+	public int getIdRisposta() {
+		return idRisposta;
 	}
 
-	public Domanda getDomandaRisposta() {
-		return domandaRisposta;
-	}
-
-	public void setDomandaRisposta(Domanda domandaRisposta) {
-		this.domandaRisposta = domandaRisposta;
-	}
-    
-    
+	public void setIdRisposta(int idRisposta) {
+		this.idRisposta = idRisposta;
+	}    
 }

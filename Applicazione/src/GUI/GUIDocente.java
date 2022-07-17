@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -24,6 +25,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+@SuppressWarnings({"serial" , "unused"})
 public class GUIDocente extends JFrame {
 
 	private JPanel contentPane;
@@ -32,10 +34,14 @@ public class GUIDocente extends JFrame {
 	JFrame accessoapp;
 	
 	public GUIDocente(Controller c,JFrame accesso) {
+		setResizable(false);
+		setBounds(750, 250, 876, 576);
+		Dimension dim = getToolkit().getScreenSize();
+		this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+		this.setLocationRelativeTo(null);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GUIDocente.class.getResource("/Immagini/Legnarino_icon2.png")));
 		setTitle("Legnarino Web Learning");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(750, 250, 876, 576);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,6 +70,7 @@ public class GUIDocente extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JFrame frameCreaTest = new CreazioneTest(controller, frame, accessoapp);
+				controller.creaTest();
 				frame.setVisible(false);
 				frameCreaTest.setVisible(true);
 			}
@@ -84,7 +91,7 @@ public class GUIDocente extends JFrame {
 		
 		JPanel panelUser = new JPanel();
 		panelUser.setBackground(Color.WHITE);
-		panelUser.setBounds(10, 11, 149, 155);
+		panelUser.setBounds(10, 11, 160, 155);
 		contentPane.add(panelUser);
 		
 		JLabel lblIcon = new JLabel("");

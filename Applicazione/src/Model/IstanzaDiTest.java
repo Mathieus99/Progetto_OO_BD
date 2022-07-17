@@ -1,24 +1,36 @@
 package Model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+@SuppressWarnings("unused")
 public class IstanzaDiTest {
+	private long idIstanza;
     private String stato;
     private int punteggio;
     private Test t;
     private Studente idStudente;
-    private ArrayList<Risposta> risposteUtente;
+    private ArrayList<RispostaUtente> risposteUtente;
+    private Timestamp orarioFine;
     
     public static final String InFaseDiValutazione= "IN FASE DI VALUTAZIONE";
     public static final String Valutato = "VALUTATO";
     
     public Scanner input = new Scanner(System.in);
      
-	public IstanzaDiTest(Test idTest, Studente idStudente) {
-		super();
+	public IstanzaDiTest(Test t, Studente s) {
+		this.t = t;
+		this.idStudente = s;
 		this.stato = IstanzaDiTest.InFaseDiValutazione;
-		this.idStudente = idStudente;
+	}
+	
+	public void setIdIstanza(long id) {
+		idIstanza = id;
+	}
+	
+	public long getIdIstanza() {
+		return idIstanza;
 	}
 	
 	public String getStato() {
@@ -42,19 +54,11 @@ public class IstanzaDiTest {
 	public void setIdStudente(Studente idStudente) {
 		this.idStudente = idStudente;
 	}
-    
-    public void setRisposte()
-    {
-    	for(int i = 0; i < this.idTest.getNumeroDomande(); i++)
-    	{
-    		System.out.println(this.idTest.getDomande().get(i).getTestoDomanda());
-    		System.out.println("Inserisci la risposta:");
-    		String risp = input.nextLine();
-    		risposteUtente.add(new Risposta(risp, this, this.idTest.getDomande().get(i)));
-    	}
-    	
-    	this.idStudente.getTestSostenuti().add(this);
-    	this.idTest.getTestSostenuti().add(this);
-    }
-    
+	public void setOrarioFine(Long CurrentTime) {
+		this.orarioFine = new Timestamp(CurrentTime);		
+	}
+	
+	public void addRispostaUtente(RispostaUtente r) {
+		risposteUtente.add(r);
+	}
 }

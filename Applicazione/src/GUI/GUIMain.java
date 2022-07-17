@@ -1,11 +1,9 @@
 package GUI;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
 import Controller.Controller;
 
+@SuppressWarnings("unused")
 public class GUIMain {
 
 	/**
