@@ -36,6 +36,26 @@ public class TestDAO {
 		return maxIdTest;
 	}
 	
+	public Test getTestbyID(int id) {
+		Test t = new Test();
+		try {
+			PreparedStatement get = conn.prepareStatement("SELECT * FROM test WHERE idtest = "+id);
+			ResultSet rs = get.executeQuery();
+			while (rs.next()) {
+				t.setIdTest(id);
+				t.setCategoria(rs.getString("categoria"));
+				t.setMaxPunteggio(rs.getInt("maxpunteggio"));
+				t.setNumeroDomande(rs.getInt("numdomande"));
+				t.setPunteggioDomandeMax(rs.getInt("punteggiodmax"));
+				t.setPunteggioDomandeMin(rs.getInt("punteggiodmin"));
+				t.setTitolo(rs.getString("nometest"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return t;
+	}
+	
 	public ArrayList<Test> getTest(){
 		ArrayList<Test> testInseriti = new ArrayList<Test>();
 		try {

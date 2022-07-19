@@ -2,6 +2,7 @@ package DAO;
 
 import java.sql.*;
 import Database.ConnessioneDatabase;
+import Model.IstanzaDiTest;
  
 public class IstanzaDiTestDAO {
 	
@@ -28,5 +29,15 @@ public class IstanzaDiTestDAO {
 			e.printStackTrace();
 		}
 		return id+1;
+	}
+	
+	public void insertIstanza(IstanzaDiTest IdT) {
+		try {
+			PreparedStatement save = conn.prepareStatement("INSERT INTO istanzaditest(idistanzaditest,stato,risultato,idtest,studente,datasostenuto,numerocorrette,numeroerrate) VALUES("+IdT.getIdIstanza()+",\""+IdT.getStato()+","+IdT.getPunteggio()+","+IdT.getIdTest()+","+IdT.getIdStudente()+",\""+IdT.getOrarioFine()+"\","+IdT.getNumCorrette()+","+IdT.getNumErrate()+")");
+			save.execute();
+		} catch (SQLException e) {
+			System.out.println("Errore nel salvataggio del test dello studente");
+			e.printStackTrace();
+		}
 	}
 }

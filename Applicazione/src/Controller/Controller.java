@@ -169,6 +169,8 @@ public class Controller {
 	
 	public void setIstanzaDiTest(Test t,Studente s) {
 		IdT = new IstanzaDiTest(t,s);
+		IstanzaDiTestDAO IdTDAO = new IstanzaDiTestDAO();
+		IdT.setIdIstanza(IdTDAO.getMaxId());
 	}
 	
 	public void setIstanzaDiTest(IstanzaDiTest IdT) {
@@ -176,9 +178,8 @@ public class Controller {
 	}
 	
 	public void resetIstanzaDiTest() {
-		IdT.setStato(null);
-		IdT.setPunteggio(0);
-		IdT.setOrarioFine(null);
+		this.IdT.setPunteggio(0);
+		this.IdT.setStato(IstanzaDiTest.InFaseDiValutazione);
 	}
 
 	public Test getTestInCorso() {

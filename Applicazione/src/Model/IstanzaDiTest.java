@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-@SuppressWarnings("unused")
 public class IstanzaDiTest {
 	private long idIstanza;
     private String stato;
@@ -13,11 +12,17 @@ public class IstanzaDiTest {
     private Studente idStudente;
     private ArrayList<RispostaUtente> risposteUtente;
     private Timestamp orarioFine;
+    private int numCorrette;
+    private int numErrate;
     
     public static final String InFaseDiValutazione= "IN FASE DI VALUTAZIONE";
     public static final String Valutato = "VALUTATO";
     
     public Scanner input = new Scanner(System.in);
+    
+    public IstanzaDiTest() {
+    	
+    }
      
 	public IstanzaDiTest(Test t, Studente s) {
 		this.t = t;
@@ -58,7 +63,63 @@ public class IstanzaDiTest {
 		this.orarioFine = new Timestamp(CurrentTime);		
 	}
 	
+	public void setOrarioFine(Timestamp orario) {
+		orarioFine = orario;
+	}
+	
 	public void addRispostaUtente(RispostaUtente r) {
 		risposteUtente.add(r);
+	}
+	
+	public int getNumCorrette() {
+		return numCorrette;
+	}
+	
+	public void aggiungiCorretta(int corretta) {
+		numCorrette++;
+		punteggio = punteggio + corretta;
+	}
+	
+	public void rimuoviCorretta(int scorretta) {
+		numCorrette--;
+		punteggio = punteggio - scorretta;
+	}
+	
+	public int getNumErrate() {
+		return numErrate;
+	}
+	
+	public void aggiungiErrata(int errata) {
+		numErrate++;
+		punteggio = punteggio + errata;
+	}
+	
+	public void rimuoviErrata(int serrata) {
+		numErrate--;
+		punteggio = punteggio - serrata;
+	}
+	
+	public ArrayList<RispostaUtente> getRisposteUtente(){
+		return risposteUtente;
+	}
+	
+	public Test getTest() {
+		return t;
+	}
+	
+	public Timestamp getOrarioFine() {
+		return orarioFine;
+	}
+	
+	public void setNumCorrette(int corrette) {
+		numCorrette = corrette;
+	}
+	
+	public void setNumErrate(int errate) {
+		numErrate = errate;
+	}
+	
+	public void setTest(Test t) {
+		this.t = t;
 	}
 }

@@ -1,7 +1,10 @@
 package DAO;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import Database.ConnessioneDatabase;
+import Model.IstanzaDiTest;
 import Model.Studente;
 
 public class StudenteDAO {
@@ -19,9 +22,11 @@ public class StudenteDAO {
 	
 	public Studente login(String email, String pass){
 		s= new Studente();
+		TestDAO tdao = new TestDAO();
+		ResultSet rs;
 		try {
 			PreparedStatement login = conn.prepareStatement("SELECT * FROM utente WHERE email = '" + email + "' AND password = '" + pass + "' AND ruolo = 'Studente'");
-			ResultSet rs = login.executeQuery();
+			rs = login.executeQuery();
 			if (rs.wasNull())
 				return null;	
 			while(rs.next()) {
@@ -31,7 +36,26 @@ public class StudenteDAO {
 				s.setPassword("password");
 			}
 			rs.close();
+			PreparedStatement loadTestS = conn.prepareStatement("SELECT * FROM utente JOIN istanzaditest ON idutente = studente WHERE email = '"+email+"' AND password = '"+pass+"'");
+			rs = loadTestS.executeQuery();
+			ArrayList<IstanzaDiTest> testStudente = new ArrayList<IstanzaDiTest>();
+			if (rs.wasNull())
+				s.setTestSostenuti(null);
+			else
+				while(rs.next()) {
+					IstanzaDiTest IdT = new IstanzaDiTest();
+					IdT.setIdIstanza(rs.getInt("idistanzaditest"));
+					IdT.setStato(rs.getString("stato"));
+					IdT.setPunteggio(rs.getInt("risultato"));
+					IdT.setOrarioFine(rs.getTimestamp("datasostenuto"));
+					IdT.setNumCorrette(rs.getInt("numerorcorrette"));
+					IdT.setNumErrate(rs.getInt("numerorerrate"));					
+					IdT.setTest(tdao.getTestbyID(rs.getInt("idtest")));
+					testStudente.add(IdT);
+				}
+			rs.close();
 			conn.close();
+			s.setTestSostenuti(testStudente);
 			return s;
 		}
 		catch(SQLException e) {

@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -14,6 +15,7 @@ import Controller.Controller;
 import DAO.RispostaDAO;
 import Model.RispostaUtente;
 
+@SuppressWarnings ("unused")
 public class DoTest {
 	
 	JFrame frame;
@@ -22,10 +24,12 @@ public class DoTest {
 	private JTextPane txtRispostaAperta;
 	private String[] risposte;
 	private RispostaUtente rU;
+	private JFrame guiUtente;
 	
-	public DoTest(Controller c) {
+	public DoTest(Controller c,JFrame guiUtente) {
 		this.c = c;
 		c.caricaDomandeTest();
+		this.guiUtente = guiUtente;
 		initialize();
 		frame.setVisible(true);
 	}
@@ -45,6 +49,9 @@ public class DoTest {
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(DoTest.class.getResource("/Immagini/Legnarino_icon2.png")));
 		frame.setBounds(100, 100, 812, 421);
 		frame.getContentPane().setLayout(null);
+		Dimension dim = frame.getToolkit().getScreenSize();
+		frame.setLocation(dim.width / 2 - frame.getWidth() / 2, dim.height / 2 - frame.getHeight() / 2);
+		frame.setLocationRelativeTo(null);
 		//---------------------------------------------------------------------------------------------------------------------------
 		
 		JButton btnAvanti = new JButton("Avanti");
@@ -167,7 +174,7 @@ public class DoTest {
 						stato--;
 						frame.setVisible(false);
 						c.getIstanzaDiTest().setOrarioFine(System.currentTimeMillis());
-						//Fase di "Test Completato"
+						TestDone tD = new TestDone(c,guiUtente);
 						return;
 					}
 					
@@ -250,7 +257,8 @@ public class DoTest {
 					if(checkStatoTest(stato,lunghezzaTest)) {
 						stato--;
 						frame.setVisible(false);
-						//Passaggio a "Test Completato"
+						c.getIstanzaDiTest().setOrarioFine(System.currentTimeMillis());
+						TestDone tD = new TestDone(c,guiUtente);
 						return;
 					}
 						

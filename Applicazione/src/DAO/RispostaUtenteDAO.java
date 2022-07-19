@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Database.ConnessioneDatabase;
+import Model.RispostaUtente;
 
 public class RispostaUtenteDAO {
 	
@@ -35,4 +37,15 @@ public class RispostaUtenteDAO {
 		return id;
 	}
 	
+	public void saveRisposteUtente(ArrayList<RispostaUtente> risposte) {
+		try {
+			for(RispostaUtente rU: risposte) {
+				PreparedStatement save = conn.prepareStatement("INSERT INTO rispostautente VALUES("+rU.getIdRispostaUtente()+",\""+rU.getTestoRisposta()+"\","+rU.getPunteggio()+","+rU.getIdIstanzaDiTest()+","+rU.getIdDomanda());
+				save.execute();
+			}
+		} catch (SQLException e) {
+			System.out.println("Errore nel salvataggio delle risposte");
+			e.printStackTrace();
+		}
+	}
 }

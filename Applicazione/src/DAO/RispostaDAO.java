@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 import Database.ConnessioneDatabase;
 import Model.Domanda;
+import Model.IstanzaDiTest;
 import Model.Risposta;
+import Model.RispostaUtente;
 
 public class RispostaDAO {
 	
@@ -61,21 +63,31 @@ public class RispostaDAO {
 	}
 	//--------------------------------------------------------------
 	
-	public int checkPunteggioRisposta(String risposta) {
-		int punteggio = 0;
+	public void checkPunteggioRisposta(IstanzaDiTest IdT) {
+		int numeroRisposte = 0;
 		try {
-			PreparedStatement checkP = conn.prepareStatement("SELECT * FROM test JOIN (domanda JOIN risposta ON iddomanda) ON idtest WHERE testorisposta = \""+risposta+"\"");
-			ResultSet rs = checkP.executeQuery();
-			while (rs.next()) {
-				if(rs.getBoolean("corretta"))
-					punteggio = rs.getInt("punteggiodmax");
-				else
-					punteggio = rs.getInt("punteggiodmin");
+			for (RispostaUtente rU: IdT.getRisposteUtente()) {
+				PreparedStatement checkP = conn.prepareStatement("SELECT * FROM test JOIN (domanda JOIN risposta ON iddomanda) ON idtest WHERE testorisposta = \""+rU.getTestoRisposta()+"\"");
+				ResultSet rs = checkP.executeQuery();
+				while (rs.next()) {
+					if(rs.getBoolean("corretta")) {
+						rU.setPunteggio(rs.getInt("punteggiodmax"));
+						IdT.aggiungiCorretta(rs.getInt("punteggiodmax"));
+						numeroRisposte++;
+					}
+					else {
+						rU.setPunteggio(rs.getInt("punteggiodmin"));
+						IdT.aggiungiErrata(rs.getInt("punteggiodmin"));
+						numeroRisposte++;
+					}
+				}
+				if(numeroRisposte==IdT.getTest().getNumeroDomande()) {
+					IdT.setStato(IstanzaDiTest.Valutato);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		return punteggio;		
+		}		
 	}
 	
 	//Salva le nuove risposte nel db

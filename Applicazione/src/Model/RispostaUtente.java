@@ -8,6 +8,7 @@ public class RispostaUtente {
 	private IstanzaDiTest idIstanzaDiTest;
 	private Domanda idDomanda;
 	private String testoRisposta;
+	private int punteggio;
 	private RispostaUtenteDAO rUdao;
 	
 	public RispostaUtente() {
@@ -45,6 +46,14 @@ public class RispostaUtente {
 	
 	public void setTestoRisposta(String testoRisposta) {
 		this.testoRisposta = testoRisposta;
+	}
+
+	public int getPunteggio() {
+		return punteggio;
+	}
+
+	public void setPunteggio(int punteggio) {
+		this.punteggio = punteggio;
 	}
 	
 	

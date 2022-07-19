@@ -81,13 +81,13 @@ public class VisualizzaTest extends JFrame {
 				new String[] {
 					"NomeTest", "NumeroDomande", "PunteggioMassimo", "Materia", "PunteggioDMax", "PunteggioDMin"
 				}
-			));
-			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-			ArrayList<Test> testDocente = new ArrayList<Test>();
-			testDocente = controller.getTestDocente();
-			if (testDocente!=null)
-				for (int i=0;i<testDocente.size();i++) 
-					model.addRow(new Object[]{testDocente.get(i).getTitolo(),testDocente.get(i).getNumeroDomande(),testDocente.get(i).getMaxPunteggio(),testDocente.get(i).getCategoria(),testDocente.get(i).getPunteggioDomandeMax(),testDocente.get(i).getPunteggioDomandeMin()});
+		));
+		DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+		ArrayList<Test> testDocente = new ArrayList<Test>();
+		testDocente = controller.getTestDocente();
+		if (testDocente!=null)
+			for (int i=0;i<testDocente.size();i++) 
+				model.addRow(new Object[]{testDocente.get(i).getTitolo(),testDocente.get(i).getNumeroDomande(),testDocente.get(i).getMaxPunteggio(),testDocente.get(i).getCategoria(),testDocente.get(i).getPunteggioDomandeMax(),testDocente.get(i).getPunteggioDomandeMin()});
 		contentPane.add(table_1);
 		
 		

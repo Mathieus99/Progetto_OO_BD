@@ -235,7 +235,7 @@ public class SelectTest extends JFrame {
 				for (Test t: testDocente)
 					if(comboBoxTitoloTest.getSelectedItem().toString().contains(t.getTitolo()) && comboBoxMateria.getSelectedItem().toString().contains(t.getCategoria())) {
 						c.setIstanzaDiTest(t, c.getStudente());
-						DoTest dT = new DoTest(c);
+						DoTest dT = new DoTest(c,guiUtente);
 					}
 			}
 		});

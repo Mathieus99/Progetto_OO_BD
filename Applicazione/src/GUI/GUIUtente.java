@@ -116,6 +116,24 @@ public class GUIUtente extends JFrame {
 		lblDoTest.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblDoTest.setBounds(287, 331, 105, 20);
 		contentPane.add(lblDoTest);
+		
+		JLabel lblBtnTestSvolti = new JLabel("");
+		lblBtnTestSvolti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFrame TestFatti = new TestSvolti(c,frame);
+				frame.setVisible(false);
+				TestFatti.setVisible(true);
+			}
+		});
+		lblBtnTestSvolti.setIcon(new ImageIcon(GUIUtente.class.getResource("/Immagini/BtnVisualizza Test.png")));
+		lblBtnTestSvolti.setBounds(446, 171, 149, 180);
+		contentPane.add(lblBtnTestSvolti);
+		
+		JLabel lblVisualizzaTestSvolti = new JLabel("Visualizza Test Svolti");
+		lblVisualizzaTestSvolti.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblVisualizzaTestSvolti.setBounds(439, 331, 174, 20);
+		contentPane.add(lblVisualizzaTestSvolti);
 	}
 }
 
