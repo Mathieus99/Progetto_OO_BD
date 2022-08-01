@@ -38,6 +38,7 @@ public class DoTest {
 		frame = new JFrame();
 		
 		int lunghezzaTest = c.getDomandeTest().length;
+		risposte = new String[c.getDomandeTest()[stato].getRisposte().size()];
 		for (int i=0;i<c.getDomandeTest()[stato].getRisposte().size();i++)
 			risposte[i] = c.getDomandeTest()[stato].getRisposte().get(i).getTestoRisposta();
 		
@@ -75,6 +76,7 @@ public class DoTest {
 		lblNumDomanda.setForeground(new Color(51, 102, 255));
 		lblNumDomanda.setFont(new Font("Tahoma", Font.BOLD, 25));
 		panelDomanda.add(lblNumDomanda);
+		lblNumDomanda.setText(Integer.toString(stato+1));
 		
 		JEditorPane txtDomanda = new JEditorPane();
 		txtDomanda.setText(c.getDomandeTest()[stato].getTestoDomanda());

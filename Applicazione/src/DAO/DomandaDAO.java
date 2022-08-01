@@ -37,15 +37,16 @@ public class DomandaDAO {
 		Domanda d = new Domanda();
 		RispostaDAO rdao = new RispostaDAO();
 		try {
-			PreparedStatement searchD = conn.prepareStatement("SELECT * FROM domanda WHERE idtest="+idTest);
+			PreparedStatement searchD = conn.prepareStatement("SELECT * FROM domanda WHERE idtest = " + idTest);
 			ResultSet rs = searchD.executeQuery();
 			while (rs.next()) {
 				d.setIdDomanda(rs.getInt("iddomanda"));
-				d.setIdTest(idTest);
+				d.setIdTest(rs.getInt("idtest"));
 				d.setTestoDomanda(rs.getString("testodomanda"));
 				d.setTipo(rs.getString("tipodomanda"));
 				if (d.getTestoDomanda().equals("Multipla"))
 					d.setRisposte(rdao.getRisposte(d));
+				domandeTest.add(d);
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();

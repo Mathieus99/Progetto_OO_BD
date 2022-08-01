@@ -188,6 +188,9 @@ public class Controller {
 
 	public void setTestInCorso(Test testInCorso) {
 		this.testInCorso = testInCorso;
+		DomandaDAO ddao = new DomandaDAO();
+		testInCorso.setDomande(ddao.getDomandeTest(testInCorso.getIdTest()));
+		System.out.println("Domande caricate: "+testInCorso.getDomande().size());
 	}
 
 	public Domanda[] getDomandeTest() {
@@ -199,10 +202,12 @@ public class Controller {
 	}
 	
 	public void caricaDomandeTest() {
-		for (int i=0;i<testInCorso.getDomande().size();i++) {
-			domandeTest[i] = testInCorso.getDomande().get(i);
+		domandeTest = new Domanda[testInCorso.getDomande().size()];
+		int i = 0;
+		for (Domanda d: testInCorso.getDomande()) {
+			domandeTest[i] = d;
+			i++;
 		}
-			
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------------------------------------*/

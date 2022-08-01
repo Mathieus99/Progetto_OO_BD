@@ -7,7 +7,7 @@ public class Domanda {
     private int idDomanda;
 	private long idTest;
 	private String tipo;
-	private ArrayList<Risposta> risposte;
+	private ArrayList<Risposta> risposte = new ArrayList<Risposta>();
     	
 	public String getTestoDomanda() {
 		return testoDomanda;
