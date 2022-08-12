@@ -197,17 +197,29 @@ public class Controller {
 		return domandeTest;
 	}
 
-	public void setDomandeTest(Domanda[] domandeTest) {
+	public void setDomandeTest(Domanda[] domandeTest){
 		this.domandeTest = domandeTest;
 	}
 	
 	public void caricaDomandeTest() {
 		domandeTest = new Domanda[testInCorso.getDomande().size()];
 		int i = 0;
+		RispostaDAO rdao = new RispostaDAO();
 		for (Domanda d: testInCorso.getDomande()) {
 			domandeTest[i] = d;
+			if (domandeTest[i].getTipo().contentEquals("Multipla"))
+				domandeTest[i].setRisposte(rdao.getRisposte(d));
 			i++;
 		}
+		for(int i1=0;i1<domandeTest.length;i1++) {
+			System.out.println("Domanda: "+domandeTest[i1].getTestoDomanda());
+			if (domandeTest[i1].getRisposte().size()!=0) {
+				System.out.println("Risposte: \n");
+				for(int i2=0;i2<domandeTest[i1].getRisposte().size();i++)
+					System.out.println("- "+domandeTest[i1].getRisposte().get(i2).getTestoRisposta()+"\n");
+			}
+		}
+		
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------------------------------------*/

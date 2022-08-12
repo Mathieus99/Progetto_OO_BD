@@ -22,6 +22,7 @@ public class StudenteDAO {
 	
 	public Studente login(String email, String pass){
 		s= new Studente();
+		IstanzaDiTest IdT;
 		TestDAO tdao = new TestDAO();
 		ResultSet rs;
 		try {
@@ -30,20 +31,21 @@ public class StudenteDAO {
 			if (rs.wasNull())
 				return null;	
 			while(rs.next()) {
+				s.setIdStudente(rs.getLong("idutente"));
 				s.setNome(rs.getString("nome"));
 				s.setCognome(rs.getString("cognome"));
 				s.setEmail("email");
 				s.setPassword("password");
 			}
 			rs.close();
-			PreparedStatement loadTestS = conn.prepareStatement("SELECT * FROM utente JOIN istanzaditest ON idutente = studente WHERE email = '"+email+"' AND password = '"+pass+"'");
+			PreparedStatement loadTestS = conn.prepareStatement("SELECT * FROM istanzaditest WHERE studente="+s.getIdStudente());
 			rs = loadTestS.executeQuery();
 			ArrayList<IstanzaDiTest> testStudente = new ArrayList<IstanzaDiTest>();
 			if (rs.wasNull())
 				s.setTestSostenuti(null);
 			else
 				while(rs.next()) {
-					IstanzaDiTest IdT = new IstanzaDiTest();
+					IdT = new IstanzaDiTest();
 					IdT.setIdIstanza(rs.getInt("idistanzaditest"));
 					IdT.setStato(rs.getString("stato"));
 					IdT.setPunteggio(rs.getInt("risultato"));

@@ -232,13 +232,15 @@ public class SelectTest extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				frame.setVisible(false);
-				for (Test t: testDocente)
+				for (Test t: testDocente) {
+					System.out.println(t.getTitolo()+" "+t.getCategoria()+" "+t.getProprietario()+" "+t.getDomande().size()+" Selezionato - "+comboBoxTitoloTest.getSelectedItem().toString()+" "+comboBoxMateria.getSelectedItem().toString());
 					if(comboBoxTitoloTest.getSelectedItem().toString().contains(t.getTitolo()) && comboBoxMateria.getSelectedItem().toString().contains(t.getCategoria())) {
 						c.setTestInCorso(t);
 						System.out.println("Test in corso: "+c.getTestInCorso().getTitolo() +" - "+c.getTestInCorso().getCategoria());
 						c.setIstanzaDiTest(t, c.getStudente());				
 						DoTest dT = new DoTest(c,guiUtente);
 					}
+				}
 			}
 		});
 		btnDoTest.setBackground(new Color(51, 102, 255));

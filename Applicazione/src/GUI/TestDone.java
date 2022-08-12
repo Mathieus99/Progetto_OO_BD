@@ -55,12 +55,12 @@ public class TestDone {
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				IstanzaDiTestDAO IdTDAO = new IstanzaDiTestDAO();
+				IdTDAO.insertIstanza(c.getIstanzaDiTest());
 				RispostaDAO rdao = new RispostaDAO();
 				rdao.checkPunteggioRisposta(c.getIstanzaDiTest());
 				RispostaUtenteDAO rUDAO = new RispostaUtenteDAO();
 				rUDAO.saveRisposteUtente(c.getIstanzaDiTest().getRisposteUtente());
-				IstanzaDiTestDAO IdTDAO = new IstanzaDiTestDAO();
-				IdTDAO.insertIstanza(c.getIstanzaDiTest());
 				frame.setVisible(false);
 				guiUtente.setVisible(true);
 			}

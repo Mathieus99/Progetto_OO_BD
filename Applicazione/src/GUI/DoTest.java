@@ -13,6 +13,9 @@ import javax.swing.border.EtchedBorder;
 
 import Controller.Controller;
 import DAO.RispostaDAO;
+import DAO.RispostaUtenteDAO;
+import Model.Domanda;
+import Model.Risposta;
 import Model.RispostaUtente;
 
 @SuppressWarnings ("unused")
@@ -21,8 +24,9 @@ public class DoTest {
 	JFrame frame;
 	private Controller c;
 	private int stato = 0;
+	private int id = 0;
 	private JTextPane txtRispostaAperta;
-	private String[] risposte;
+	private String[] risposte = new String[5];
 	private RispostaUtente rU;
 	private JFrame guiUtente;
 	
@@ -30,6 +34,10 @@ public class DoTest {
 		this.c = c;
 		c.caricaDomandeTest();
 		this.guiUtente = guiUtente;
+		RispostaUtenteDAO rUdao = new RispostaUtenteDAO();
+		id = rUdao.getMaxId();
+		for (int i=0;i<5;i++)
+			risposte[i]="";
 		initialize();
 		frame.setVisible(true);
 	}
@@ -38,9 +46,14 @@ public class DoTest {
 		frame = new JFrame();
 		
 		int lunghezzaTest = c.getDomandeTest().length;
-		risposte = new String[c.getDomandeTest()[stato].getRisposte().size()];
-		for (int i=0;i<c.getDomandeTest()[stato].getRisposte().size();i++)
+		System.out.println("Risposte: "+c.getDomandeTest()[stato].getRisposte().size());
+		int i = 0;
+		for (Risposta r: c.getDomandeTest()[stato].getRisposte()) {
 			risposte[i] = c.getDomandeTest()[stato].getRisposte().get(i).getTestoRisposta();
+			i++;
+		}
+		for (int i1=0;i1<5;i1++)
+			System.out.println("risposta "+i1+" : "+risposte[i1]);
 		
 		//Creazione del frame -------------------------------------------------------------------------------------------------------
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -85,44 +98,44 @@ public class DoTest {
 		txtDomanda.setBounds(10, 60, 778, 71);
 		frame.getContentPane().add(txtDomanda);
 		
-		JPanel panelRispostaMultipla = new JPanel();
-		panelRispostaMultipla.setBounds(10, 142, 778, 137);
-		panelRispostaMultipla.setLayout(null);
-		frame.getContentPane().add(panelRispostaMultipla);
-		
 		JRadioButton A = new JRadioButton("A");
 		A.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		A.setBounds(6, 7, 766, 23);
-		panelRispostaMultipla.add(A);
+		A.setBackground(Color.WHITE);
+		A.setBounds(10, 139, 778, 23);
 		
 		JRadioButton B = new JRadioButton("B");
 		B.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		B.setBounds(6, 33, 766, 23);
-		panelRispostaMultipla.add(B);
+		B.setBackground(Color.WHITE);
+		B.setBounds(10, 165, 778, 23);
 		
 		JRadioButton C = new JRadioButton("C");
 		C.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		C.setBounds(6, 59, 766, 23);
-		panelRispostaMultipla.add(C);
+		C.setBackground(Color.WHITE);
+		C.setBounds(10, 191, 778, 23);
 		
 		JRadioButton D = new JRadioButton("D");
 		D.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		D.setBounds(6, 85, 766, 23);
-		panelRispostaMultipla.add(D);
+		D.setBackground(Color.WHITE);
+		D.setBounds(10, 217, 778, 23);
 		
 		JRadioButton E = new JRadioButton("E");
 		E.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		E.setBounds(6, 111, 766, 23);
-		panelRispostaMultipla.add(E);
+		E.setBackground(Color.WHITE);
+		E.setBounds(10, 243, 778, 23);
 		
 		txtRispostaAperta = new JTextPane();
 		txtRispostaAperta.setBounds(10, 154, 778, 71);
 		txtRispostaAperta.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtRispostaAperta.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		frame.getContentPane().add(txtRispostaAperta);
+		txtRispostaAperta.setVisible(false);
 		
 		if(c.getDomandeTest()[0].getRisposte().size() == 0) {
-			panelRispostaMultipla.setVisible(false);
+			A.setVisible(false);
+			B.setVisible(false);
+			C.setVisible(false);
+			D.setVisible(false);
+			E.setVisible(false);
 			txtRispostaAperta.setVisible(true);
 		} else {
 			if(risposte[0].equals(""))
@@ -156,7 +169,6 @@ public class DoTest {
 				E.setText(risposte[4]);
 			}
 			if (A.isVisible()) {
-				panelRispostaMultipla.setVisible(true);
 				txtRispostaAperta.setVisible(false);
 			}
 		}
@@ -166,11 +178,15 @@ public class DoTest {
 			public void mouseClicked(MouseEvent e) {
 				if(c.getDomandeTest()[stato].getRisposte().size()==0) {
 					rU = new RispostaUtente();
+					rU.setIdRispostaUtente(id);
 					rU.setIdIstanzaDiTest(c.getIstanzaDiTest());
 					rU.setIdDomanda(c.getDomandeTest()[stato]);
 					rU.setTestoRisposta(txtRispostaAperta.getText());
+					if (!rU.equals(null)) System.out.println("Risposta buona - Tutto approcida");
 					c.getIstanzaDiTest().addRispostaUtente(rU);
 					stato++;
+					id++;
+					lblNumDomanda.setText(Integer.toString(stato+1));
 					
 					if(checkStatoTest(stato, lunghezzaTest)) {
 						stato--;
@@ -182,7 +198,6 @@ public class DoTest {
 					
 					txtDomanda.setText(c.getDomandeTest()[stato].getTestoDomanda());
 					if(c.getDomandeTest()[stato].getRisposte().size()==0) {
-						panelRispostaMultipla.setVisible(false);
 						A.setVisible(false);
 						B.setVisible(false);
 						C.setVisible(false);
@@ -191,9 +206,11 @@ public class DoTest {
 						txtRispostaAperta.setVisible(true);
 					}
 					else {
-						panelRispostaMultipla.setVisible(true);
+						System.out.println("Risposte: "+c.getDomandeTest()[stato].getRisposte().size());
 						for(int i=0;i<c.getDomandeTest()[stato].getRisposte().size();i++)
 							risposte[i] = c.getDomandeTest()[stato].getRisposte().get(i).getTestoRisposta();
+						for (int i1=0;i1<5;i1++)
+							System.out.println("risposta "+i1+" : "+risposte[i1]);
 						if(risposte[0].equals("")) {
 							A.setVisible(false);
 							A.setText(risposte[0]);
@@ -250,12 +267,15 @@ public class DoTest {
 					else if(E.isSelected())
 						risposta = E.getText();
 					rU = new RispostaUtente();
+					rU.setIdRispostaUtente(id);
 					rU.setIdIstanzaDiTest(c.getIstanzaDiTest());
 					rU.setIdDomanda(c.getDomandeTest()[stato]);
 					rU.setTestoRisposta(risposta);
 					RispostaDAO rdao = new RispostaDAO();
 					c.getIstanzaDiTest().addRispostaUtente(rU);
 					stato++;
+					id++;
+					
 					if(checkStatoTest(stato,lunghezzaTest)) {
 						stato--;
 						frame.setVisible(false);
@@ -267,7 +287,6 @@ public class DoTest {
 					txtDomanda.setText(c.getDomandeTest()[stato].getTestoDomanda());
 						
 					if(c.getDomandeTest()[stato].getRisposte().size()==0) {
-						panelRispostaMultipla.setVisible(false);
 						A.setVisible(false);
 						B.setVisible(false);
 						C.setVisible(false);
@@ -276,7 +295,6 @@ public class DoTest {
 						txtRispostaAperta.setVisible(true);
 					}
 					else {
-						panelRispostaMultipla.setVisible(true);
 						A.setVisible(false);
 						B.setVisible(false);
 						C.setVisible(false);
@@ -284,6 +302,8 @@ public class DoTest {
 						E.setVisible(false);
 						for(int i=0;i<c.getDomandeTest()[stato].getRisposte().size();i++)
 							risposte[i] = c.getDomandeTest()[stato].getRisposte().get(i).getTestoRisposta();
+						for (int i1=0;i1<5;i1++)
+							System.out.println("risposta "+i1+" : "+risposte[i1]);
 						if(risposte[0].equals("")) {
 							A.setVisible(false);
 							A.setText(risposte[0]);

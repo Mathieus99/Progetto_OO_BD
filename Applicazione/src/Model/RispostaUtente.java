@@ -1,7 +1,5 @@
 package Model;
 
-import DAO.RispostaUtenteDAO;
-
 public class RispostaUtente {
 	
 	private int idRispostaUtente;
@@ -9,12 +7,6 @@ public class RispostaUtente {
 	private Domanda idDomanda;
 	private String testoRisposta;
 	private int punteggio;
-	private RispostaUtenteDAO rUdao;
-	
-	public RispostaUtente() {
-		rUdao = new RispostaUtenteDAO();
-		this.idRispostaUtente = rUdao.getMaxId();
-	}
 	
 	public int getIdRispostaUtente() {
 		return idRispostaUtente;

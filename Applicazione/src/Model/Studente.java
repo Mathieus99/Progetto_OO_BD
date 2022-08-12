@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 public class Studente{
+	private long idStudente;
 	private String Nome;
 	private String Cognome;
 	private String Password;
@@ -53,5 +54,13 @@ public class Studente{
 		this.testSostenuti = testSostenuti;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+
+	public long getIdStudente() {
+		return idStudente;
+	}
+
+	public void setIdStudente(long l) {
+		this.idStudente = l;
+	}
 
 }

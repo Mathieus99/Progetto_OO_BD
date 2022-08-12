@@ -1,4 +1,4 @@
-package Model;
+ package Model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -9,14 +9,14 @@ public class IstanzaDiTest {
     private String stato;
     private int punteggio;
     private Test t;
-    private Studente idStudente;
-    private ArrayList<RispostaUtente> risposteUtente;
+    private Studente idStudente; 
+    private ArrayList<RispostaUtente> risposteUtente = new ArrayList<RispostaUtente>();
     private Timestamp orarioFine;
     private int numCorrette;
     private int numErrate;
     
-    public static final String InFaseDiValutazione= "IN FASE DI VALUTAZIONE";
-    public static final String Valutato = "VALUTATO";
+    public static final String InFaseDiValutazione= "In fase di valutazione";
+    public static final String Valutato = "Valutato";
     
     public Scanner input = new Scanner(System.in);
     

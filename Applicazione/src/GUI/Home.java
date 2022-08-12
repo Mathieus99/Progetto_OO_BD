@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.Controller;
+import DAO.StudenteDAO;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -36,14 +38,18 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.Button;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-@SuppressWarnings({ "serial", "unused" })
+@SuppressWarnings({ "serial", "unused","deprecation" })
 public class Home extends JFrame {
 
 	private Controller controller;
 	JFrame frame;
 	private JTextField textFieldUsername;
 	private JPasswordField passwordField;
+	private JLabel lblPswError;
+	private JLabel lblUsernameError;
 	
 	public Home(Controller c) {
 		setResizable(false);
@@ -108,13 +114,13 @@ public class Home extends JFrame {
 			lblRegisterSuccesful.setText("Registrazione avvenuta con successo!");
 		}
 		
-		JLabel lblPswError = new JLabel("");
+		lblPswError = new JLabel("");
 		lblPswError.setBounds(139, 59, 145, 14);
 		panelForm.add(lblPswError);
 		lblPswError.setForeground(Color.RED);
 		lblPswError.setFont(new Font("Lucida Bright", Font.BOLD, 11));
 		
-		JLabel lblUsernameError = new JLabel("");
+		lblUsernameError = new JLabel("");
 		lblUsernameError.setBounds(139, 11, 145, 14);
 		panelForm.add(lblUsernameError);
 		lblUsernameError.setForeground(Color.RED);
@@ -125,7 +131,6 @@ public class Home extends JFrame {
 		panelForm.add(btnAccedi);
 		btnAccedi.setBackground(Color.WHITE);
 		btnAccedi.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				lblRegisterSuccesful.setText("");
 				boolean no=true;
@@ -153,7 +158,7 @@ public class Home extends JFrame {
 				if(no==true) {
 					if(controller.getRuolo().contentEquals("Studente")) 
 						frameGUIUtente=new GUIUtente (controller, frame);
-					else 
+					else
 						frameGUIUtente=new GUIDocente (controller, frame);		
 
 					frame.setVisible(false);

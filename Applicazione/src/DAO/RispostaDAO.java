@@ -52,11 +52,12 @@ public class RispostaDAO {
 			while (rs.next()) {
 				r.setIdDomanda(rs.getInt("iddomanda"));
 				r.setIdRisposta(rs.getInt("idrisposta"));
-				r.setTestoRisposta(rs.getString("testoriposta"));
+				r.setTestoRisposta(rs.getString("testorisposta"));
 				r.setCorretta(rs.getBoolean("corretta"));
 				risposteD.add(r);
 			}
 		}catch (SQLException e) {
+			System.out.println("Errore caricamento risposte!");
 			e.printStackTrace();
 		}
 		return risposteD;
@@ -67,7 +68,7 @@ public class RispostaDAO {
 		int numeroRisposte = 0;
 		try {
 			for (RispostaUtente rU: IdT.getRisposteUtente()) {
-				PreparedStatement checkP = conn.prepareStatement("SELECT * FROM test JOIN (domanda JOIN risposta ON iddomanda) ON idtest WHERE testorisposta = \""+rU.getTestoRisposta()+"\"");
+				PreparedStatement checkP = conn.prepareStatement("SELECT * FROM test T JOIN (domanda D JOIN risposta R ON D.iddomanda=R.iddomanda) F ON T.idtest=F.idtest WHERE testorisposta = '"+rU.getTestoRisposta()+"'");
 				ResultSet rs = checkP.executeQuery();
 				while (rs.next()) {
 					if(rs.getBoolean("corretta")) {

@@ -34,12 +34,13 @@ public class DomandaDAO {
 	
 	public ArrayList<Domanda> getDomandeTest(long idTest){
 		ArrayList<Domanda> domandeTest = new ArrayList<Domanda>();
-		Domanda d = new Domanda();
+		Domanda d;
 		RispostaDAO rdao = new RispostaDAO();
 		try {
 			PreparedStatement searchD = conn.prepareStatement("SELECT * FROM domanda WHERE idtest = " + idTest);
 			ResultSet rs = searchD.executeQuery();
 			while (rs.next()) {
+				d = new Domanda();
 				d.setIdDomanda(rs.getInt("iddomanda"));
 				d.setIdTest(rs.getInt("idtest"));
 				d.setTestoDomanda(rs.getString("testodomanda"));

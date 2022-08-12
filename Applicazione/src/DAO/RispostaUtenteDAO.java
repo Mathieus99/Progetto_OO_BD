@@ -34,18 +34,23 @@ public class RispostaUtenteDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return id;
+		return id+1;
 	}
 	
 	public void saveRisposteUtente(ArrayList<RispostaUtente> risposte) {
 		try {
 			for(RispostaUtente rU: risposte) {
-				PreparedStatement save = conn.prepareStatement("INSERT INTO rispostautente VALUES("+rU.getIdRispostaUtente()+",\""+rU.getTestoRisposta()+"\","+rU.getPunteggio()+","+rU.getIdIstanzaDiTest()+","+rU.getIdDomanda());
+				PreparedStatement save = conn.prepareStatement("INSERT INTO rispostautente(idrispostautente,testorisposta,punteggiorisposta,idistanzaditest,iddomanda) VALUES("+rU.getIdRispostaUtente()+",'"+rU.getTestoRisposta()+"',"+rU.getPunteggio()+","+rU.getIdIstanzaDiTest().getIdIstanza()+","+rU.getIdDomanda().getIdDomanda()+")");
 				save.execute();
 			}
 		} catch (SQLException e) {
 			System.out.println("Errore nel salvataggio delle risposte");
 			e.printStackTrace();
 		}
+	}
+	
+	public void fillRisposteUtente (ArrayList<IstanzaDiTest> istanzeTest) {
+		
+		
 	}
 }

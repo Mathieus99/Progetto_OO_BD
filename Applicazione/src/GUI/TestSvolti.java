@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
 
 @SuppressWarnings({"serial" , "unused"})
 public class TestSvolti extends JFrame {
@@ -27,6 +28,7 @@ public class TestSvolti extends JFrame {
 	private JFrame frame;
 	private Controller c;
 	private JTable testSvolti;
+	private JTable table;
 
 	public TestSvolti(Controller c, JFrame guiUtente) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TestSvolti.class.getResource("/Immagini/Legnarino_icon2.png")));
@@ -63,29 +65,38 @@ public class TestSvolti extends JFrame {
 		panelUser.add(lblCognome);
 		lblCognome.setText(c.cognomeS());
 		
+		JLabel lblNessunTestSvolto = new JLabel("Nessun Test Svolto!");
+		lblNessunTestSvolto.setForeground(new Color(51, 102, 255));
+		lblNessunTestSvolto.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNessunTestSvolto.setBounds(280, 148, 149, 18);
+		contentPane.add(lblNessunTestSvolto);
+		lblNessunTestSvolto.setVisible(false);
+		
 		JPanel panelTestSvolti = new JPanel();
 		panelTestSvolti.setBounds(10, 177, 706, 310);
 		contentPane.add(panelTestSvolti);
+		panelTestSvolti.setLayout(null);
 		
-		testSvolti = new JTable();
-		testSvolti.setBounds(128, 5, 450, 0);
-		testSvolti.setBackground(Color.WHITE);
-		testSvolti.setRowSelectionAllowed(false);
-		testSvolti.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Materia", "NomeTest", "Risultato", "NumCorrette", "NumErrate", "Stato"
-			}
+		table = new JTable();
+		table.setBackground(SystemColor.controlHighlight);
+		table.setForeground(Color.BLACK);
+		table.setBounds(10, 11, 686, 288);
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Materia","NomeTest","NumCorrette","NumErrate","Stato"
+				}
 		));
-		
-		DefaultTableModel model = (DefaultTableModel) testSvolti.getModel();
-		model.addRow(new Object[] {"Materia", "Nome Test","Risultato","Numero Corrette","Numero Errate","Stato"});
-		if(c.getStudente().getTestSostenuti()!=null)
-			for(IstanzaDiTest idt: c.getStudente().getTestSostenuti())
-				model.addRow(new Object[] {idt.getTest().getCategoria(),idt.getTest().getTitolo(),idt.getPunteggio(),idt.getNumCorrette(),idt.getNumErrate(),idt.getStato()});		
-		panelTestSvolti.setLayout(null);		
-		panelTestSvolti.add(testSvolti);
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.addRow(new Object[]{"Materia","NomeTest","NumCorrette","NumErrate","Stato"});
+		if(c.getStudente().getTestSostenuti()!=null) {
+			for (IstanzaDiTest IdT: c.getStudente().getTestSostenuti())
+				model.addRow(new Object[] {IdT.getTest().getCategoria(),IdT.getTest().getTitolo(),IdT.getNumCorrette(),IdT.getNumErrate(),IdT.getStato()});
+		}
+		else
+			lblNessunTestSvolto.setVisible(true);
+		panelTestSvolti.add(table);
 		
 		JPanel panelTitolo = new JPanel();
 		panelTitolo.setBackground(Color.WHITE);
@@ -115,7 +126,6 @@ public class TestSvolti extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 25));
 		btnNewButton.setBounds(572, 119, 144, 47);
 		contentPane.add(btnNewButton);
-		
-		
+				
 	}
 }
