@@ -48,19 +48,23 @@ public class IstanzaDiTestDAO {
 	public ArrayList<IstanzaDiTest> getIstanzeDaCorreggere(){
 		ArrayList<IstanzaDiTest> istanzeProf = new ArrayList<IstanzaDiTest>();
 		IstanzaDiTest IdT;
+		RispostaUtenteDAO rUdao = new RispostaUtenteDAO();
 		try {
-			PreparedStatement loadIstances = conn.prepareStatement("SELECT * FROM istanzaditest I JOIN test T ON I.idtest = T.idtest WHERE insegnante = "+c.getDocente().getIdDocente());
+			PreparedStatement loadIstances = conn.prepareStatement("SELECT * FROM istanzaditest I JOIN test T ON I.idtest = T.idtest WHERE insegnante = "+c.getDocente().getIdDocente()+"AND stato = 'In fase di valutazione'");
 			ResultSet rs = loadIstances.executeQuery();
 			while(rs.next()) {
 				IdT = new IstanzaDiTest();
 				IdT.setIdIstanza(rs.getLong("idistanzaditest"));
 				IdT.setNumCorrette(rs.getInt("numerorcorrette"));
 				IdT.setNumErrate(rs.getInt("numerorerrate"));
-				
+				IdT.setPunteggio(rs.getInt("risultato"));
+				istanzeProf.add(IdT);
 			}
 		}catch(SQLException e) {
 			System.out.println("Errore caricamento test da correggere!");
 			e.printStackTrace();
 		}
+		rUdao.fillRisposteUtente(istanzeProf);
+		return istanzeProf;
 	}
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Database.ConnessioneDatabase;
+import Model.IstanzaDiTest;
 import Model.RispostaUtente;
 
 public class RispostaUtenteDAO {
@@ -50,7 +51,25 @@ public class RispostaUtenteDAO {
 	}
 	
 	public void fillRisposteUtente (ArrayList<IstanzaDiTest> istanzeTest) {
-		
-		
+		try {
+			PreparedStatement fillRisposte;
+			ResultSet rs;
+			RispostaUtente rU;
+			for (IstanzaDiTest idt: istanzeTest) {
+				fillRisposte = conn.prepareStatement("SELECT * FROM rispostautente WHERE idistanzaditest = "+idt.getIdIstanza());
+				rs = fillRisposte.executeQuery();
+				while (rs.next()) {
+					rU = new RispostaUtente();
+					rU.setIdRispostaUtente(rs.getInt("idrispostautente"));
+					rU.setTestoRisposta(rs.getString("testorisposta"));
+					rU.setPunteggio(rs.getInt("punteggiorisposta"));
+					rU.setIdIstanzaDiTest(idt);
+					idt.addRispostaUtente(rU);
+				}
+			}
+		}catch (SQLException e) {
+			System.out.println("Errore nel caricamento delle risposte utente per le istanze di test!");
+			e.printStackTrace();
+		}
 	}
 }

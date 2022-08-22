@@ -60,6 +60,7 @@ public class RispostaDAO {
 			System.out.println("Errore caricamento risposte!");
 			e.printStackTrace();
 		}
+		System.out.println("Risposte prelevate :"+risposteD.size());
 		return risposteD;
 	}
 	//--------------------------------------------------------------

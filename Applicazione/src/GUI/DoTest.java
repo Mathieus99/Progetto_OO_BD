@@ -52,8 +52,6 @@ public class DoTest {
 			risposte[i] = c.getDomandeTest()[stato].getRisposte().get(i).getTestoRisposta();
 			i++;
 		}
-		for (int i1=0;i1<5;i1++)
-			System.out.println("risposta "+i1+" : "+risposte[i1]);
 		
 		//Creazione del frame -------------------------------------------------------------------------------------------------------
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -206,11 +204,8 @@ public class DoTest {
 						txtRispostaAperta.setVisible(true);
 					}
 					else {
-						System.out.println("Risposte: "+c.getDomandeTest()[stato].getRisposte().size());
 						for(int i=0;i<c.getDomandeTest()[stato].getRisposte().size();i++)
 							risposte[i] = c.getDomandeTest()[stato].getRisposte().get(i).getTestoRisposta();
-						for (int i1=0;i1<5;i1++)
-							System.out.println("risposta "+i1+" : "+risposte[i1]);
 						if(risposte[0].equals("")) {
 							A.setVisible(false);
 							A.setText(risposte[0]);
@@ -302,8 +297,6 @@ public class DoTest {
 						E.setVisible(false);
 						for(int i=0;i<c.getDomandeTest()[stato].getRisposte().size();i++)
 							risposte[i] = c.getDomandeTest()[stato].getRisposte().get(i).getTestoRisposta();
-						for (int i1=0;i1<5;i1++)
-							System.out.println("risposta "+i1+" : "+risposte[i1]);
 						if(risposte[0].equals("")) {
 							A.setVisible(false);
 							A.setText(risposte[0]);

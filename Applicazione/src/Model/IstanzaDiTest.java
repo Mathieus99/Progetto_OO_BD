@@ -122,4 +122,8 @@ public class IstanzaDiTest {
 	public void setTest(Test t) {
 		this.t = t;
 	}
+	
+	public void setRisposteUtente(ArrayList<RispostaUtente> risposte) {
+		risposteUtente = risposte;
+	}
 }
