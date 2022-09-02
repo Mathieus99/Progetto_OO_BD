@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.Controller;
+import DAO.TestDAO;
+
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -84,7 +86,8 @@ public class VisualizzaTest extends JFrame {
 		));
 		DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 		ArrayList<Test> testDocente = new ArrayList<Test>();
-		testDocente = controller.getTestDocente();
+		TestDAO tdao = new TestDAO();
+		testDocente = tdao.getTestDocente(controller.getDocente().getIdDocente());
 		model.addRow(new Object[] {"NomeTest", "NumeroDomande", "PunteggioMassimo", "Materia", "PunteggioDMax", "PunteggioDMin"});
 		if (testDocente!=null)
 			for (int i=0;i<testDocente.size();i++) 

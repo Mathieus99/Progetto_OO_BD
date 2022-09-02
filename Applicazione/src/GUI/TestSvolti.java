@@ -88,14 +88,14 @@ public class TestSvolti extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-					"Materia","NomeTest","NumCorrette","NumErrate","Stato"
+					"Materia","NomeTest","NumCorrette","NumErrate","Stato","Punteggio"
 				}
 		));
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		model.addRow(new Object[]{"Materia","NomeTest","NumCorrette","NumErrate","Stato"});
+		model.addRow(new Object[]{"Materia","NomeTest","NumCorrette","NumErrate","Stato","Punteggio"});
 		if(c.getStudente().getTestSostenuti()!=null) {
 			for (IstanzaDiTest IdT: c.getStudente().getTestSostenuti())
-				model.addRow(new Object[] {IdT.getTest().getCategoria(),IdT.getTest().getTitolo(),IdT.getNumCorrette(),IdT.getNumErrate(),IdT.getStato()});
+				model.addRow(new Object[] {IdT.getTest().getCategoria(),IdT.getTest().getTitolo(),IdT.getNumCorrette(),IdT.getNumErrate(),IdT.getStato(),IdT.getPunteggio()});
 		}
 		else
 			lblNessunTestSvolto.setVisible(true);

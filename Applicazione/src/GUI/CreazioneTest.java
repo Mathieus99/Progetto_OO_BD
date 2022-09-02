@@ -5,14 +5,22 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Controller.Controller;
+import DAO.DomandaDAO;
+import DAO.RispostaDAO;
+import DAO.TestDAO;
+import Model.Domanda;
+
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTable;
@@ -22,14 +30,15 @@ import java.awt.event.MouseEvent;
 @SuppressWarnings({ "serial", "unused" })
 public class CreazioneTest extends JFrame {
 	
-	private JFrame frame;
+	private CreazioneTest frame;
 	private Controller c;
 	private JPanel contentPane;
-	private JTextField txtTitoloDiProva;
-	private JTextField txtTestoDiProva;
+	private JTextField txtTitoloTest;
+	private JTextField txtMateriaTest;
 	private JTextField punteggioDomandaMax;
-	private JTextField textField;
+	private JTextField punteggioDMin;
 	private JTable tableDomande;
+	private DefaultTableModel model;
 
 	public CreazioneTest(Controller c,JFrame guiDocente) {
 		setTitle("Legnarino");
@@ -54,19 +63,26 @@ public class CreazioneTest extends JFrame {
 		
 		JLabel lblIcon = new JLabel("");
 		panelUser.add(lblIcon);
+		if(c.nomeD().contentEquals("Porfirio") && c.cognomeD().contentEquals("Tramontana"))
+			lblIcon.setIcon(new ImageIcon(GUIDocente.class.getResource("/Immagini/User_Icon_Porfirio.png")));
+		else
+			lblIcon.setIcon(new ImageIcon(GUIDocente.class.getResource("/Immagini/User_Iconv2_2.png")));
 		
 		JLabel lblNome = new JLabel((String) null);
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panelUser.add(lblNome);
+		lblNome.setText(c.nomeD());
 		
 		JLabel lblCognome = new JLabel((String) null);
 		lblCognome.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panelUser.add(lblCognome);
+		lblCognome.setText(c.cognomeD());
 		
 		JButton btnBack = new JButton("Indietro");
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				c.resetTest();
 				frame.setVisible(false);
 				guiDocente.setVisible(true);
 			}
@@ -78,6 +94,38 @@ public class CreazioneTest extends JFrame {
 		contentPane.add(btnBack);
 		
 		JButton btnCreaTest = new JButton("Crea Test");
+		btnCreaTest.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				c.getTest().setTitolo(txtTitoloTest.getText());
+				c.getTest().setPunteggioDomandeMin(Double.parseDouble(punteggioDMin.getText()));
+				c.getTest().setPunteggioDomandeMax(Double.parseDouble(punteggioDomandaMax.getText()));
+				c.getTest().setCategoria(txtMateriaTest.getText());
+				c.getTest().setProprietario(c.getDocente().getIdDocente());
+				if(c.getTest().getDomande().get(0).getTipo().contentEquals("Aperta")) {
+					c.getTest().setTipo("Aperta");
+				} else {
+					c.getTest().setTipo("Multipla");
+				}
+				for(int i=0;i<c.getTest().getDomande().size();i++)
+					if((c.getTest().getTipo().contentEquals("Aperta") && c.getTest().getDomande().get(i).getTipo().contentEquals("Multipla")) || (c.getTest().getTipo().contentEquals("Multipla") && c.getTest().getDomande().get(i).getTipo().contentEquals("Aperta"))) {
+						c.getTest().setTipo("Mista");
+						break;
+					}
+				c.getTest().setNumeroDomande(c.getTest().getDomande().size());
+				c.getTest().setMaxPunteggio(c.getTest().getPunteggioDomandeMax()*c.getTest().getNumeroDomande());
+				TestDAO tdao = new TestDAO();
+				DomandaDAO ddao = new DomandaDAO();
+				RispostaDAO rdao = new RispostaDAO();
+				tdao.saveTest(c.getTest());
+				for (Domanda d: c.getTest().getDomande()) {
+					ddao.saveDomanda(d);
+					rdao.saveRisposte(d.getRisposte());
+				}				
+				frame.setVisible(false);
+				guiDocente.setVisible(true);
+			}
+		});
 		btnCreaTest.setForeground(new Color(255, 153, 0));
 		btnCreaTest.setBackground(new Color(51, 102, 255));
 		btnCreaTest.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -90,6 +138,16 @@ public class CreazioneTest extends JFrame {
 		
 		tableDomande = new JTable();
 		tableDomande.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		tableDomande.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"ID Domanda", "Testo Domanda"
+				}
+		));
+		model = (DefaultTableModel) tableDomande.getModel();
+		model.addRow(new Object[] {"ID Domanda","TestoDomanda"});
+		tableDomande.getColumnModel().getColumn(1).setPreferredWidth(400);
 		panelDomandeAggiunte.add(tableDomande);
 		
 		JPanel panelInfoTest = new JPanel();
@@ -119,11 +177,11 @@ public class CreazioneTest extends JFrame {
 		lblNewLabel.setBounds(10, 48, 43, 19);
 		panelInfoTest.add(lblNewLabel);
 		
-		txtTitoloDiProva = new JTextField();
-		txtTitoloDiProva.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtTitoloDiProva.setBounds(75, 45, 160, 25);
-		panelInfoTest.add(txtTitoloDiProva);
-		txtTitoloDiProva.setColumns(10);
+		txtTitoloTest = new JTextField();
+		txtTitoloTest.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtTitoloTest.setBounds(75, 45, 160, 25);
+		panelInfoTest.add(txtTitoloTest);
+		txtTitoloTest.setColumns(10);
 		
 		JLabel lblMateria = new JLabel("Materia");
 		lblMateria.setForeground(new Color(51, 102, 255));
@@ -131,11 +189,11 @@ public class CreazioneTest extends JFrame {
 		lblMateria.setBounds(10, 81, 58, 19);
 		panelInfoTest.add(lblMateria);
 		
-		txtTestoDiProva = new JTextField();
-		txtTestoDiProva.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtTestoDiProva.setColumns(10);
-		txtTestoDiProva.setBounds(75, 79, 160, 25);
-		panelInfoTest.add(txtTestoDiProva);
+		txtMateriaTest = new JTextField();
+		txtMateriaTest.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtMateriaTest.setColumns(10);
+		txtMateriaTest.setBounds(75, 79, 160, 25);
+		panelInfoTest.add(txtMateriaTest);
 		
 		JLabel lblPunteggioMaxD = new JLabel("Punteggio Max per domanda");
 		lblPunteggioMaxD.setForeground(new Color(51, 102, 255));
@@ -155,11 +213,11 @@ public class CreazioneTest extends JFrame {
 		punteggioDomandaMax.setBounds(508, 46, 37, 25);
 		panelInfoTest.add(punteggioDomandaMax);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		textField.setColumns(10);
-		textField.setBounds(508, 79, 37, 25);
-		panelInfoTest.add(textField);
+		punteggioDMin = new JTextField();
+		punteggioDMin.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		punteggioDMin.setColumns(10);
+		punteggioDMin.setBounds(508, 79, 37, 25);
+		panelInfoTest.add(punteggioDMin);
 		
 		JButton btnAddDomanda = new JButton("Aggiungi Domanda");
 		btnAddDomanda.addMouseListener(new MouseAdapter() {
@@ -175,5 +233,9 @@ public class CreazioneTest extends JFrame {
 		btnAddDomanda.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnAddDomanda.setBounds(426, 136, 200, 30);
 		contentPane.add(btnAddDomanda);
+	}
+	
+	public DefaultTableModel getTableModel() {
+		return model;
 	}
 }

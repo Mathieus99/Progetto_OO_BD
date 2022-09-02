@@ -9,7 +9,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 import Controller.Controller;
+import DAO.DomandaDAO;
+import DAO.RispostaDAO;
+import Model.Domanda;
+import Model.Risposta;
+
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -23,8 +29,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial","unused"})
 public class AddDomanda extends JFrame {
 
 	private JPanel contentPane;
@@ -47,11 +54,15 @@ public class AddDomanda extends JFrame {
 	private JRadioButton Giusta4;
 	private JRadioButton Giusta5;
 
-	public AddDomanda(Controller c,JFrame CreazioneTest) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public AddDomanda(Controller c, CreazioneTest CreazioneTest) {
 		setTitle("Legnarino");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AddDomanda.class.getResource("/Immagini/Legnarino_icon2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 663, 500);
+		Dimension dim = getToolkit().getScreenSize();
+		this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+		this.setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,7 +88,7 @@ public class AddDomanda extends JFrame {
 		
 		JPanel panelSelectTipoDomanda = new JPanel();
 		panelSelectTipoDomanda.setBackground(Color.WHITE);
-		panelSelectTipoDomanda.setBounds(351, 11, 286, 35);
+		panelSelectTipoDomanda.setBounds(340, 11, 297, 35);
 		contentPane.add(panelSelectTipoDomanda);
 		
 		selectRispostaAperta = new JRadioButton("Risposta Aperta");
@@ -198,11 +209,14 @@ public class AddDomanda extends JFrame {
 		selectFalsoGiusta.setBackground(Color.WHITE);
 		selectVoF.add(selectFalsoGiusta);
 		
+		//---------------------------------------PANEL RISPOSTE MULTIPLE-----------------------------------------------
+		
 		panelRisposta1 = new JPanel();
 		panelRisposta1.setBackground(Color.WHITE);
 		panelRisposta1.setBounds(0, 37, 627, 47);
 		panelRisposteMultiple.add(panelRisposta1);
 		panelRisposta1.setLayout(null);
+		panelRisposta1.setVisible(false);
 		
 		JLabel lblRisposta1 = new JLabel("Risposta 1");
 		lblRisposta1.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -232,6 +246,7 @@ public class AddDomanda extends JFrame {
 		panelRisposta2.setBackground(Color.WHITE);
 		panelRisposta2.setBounds(0, 88, 627, 47);
 		panelRisposteMultiple.add(panelRisposta2);
+		panelRisposta2.setVisible(false);
 		
 		JLabel lblRisposta2 = new JLabel("Risposta 2");
 		lblRisposta2.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -261,6 +276,7 @@ public class AddDomanda extends JFrame {
 		panelRisposta3.setBackground(Color.WHITE);
 		panelRisposta3.setBounds(0, 139, 627, 47);
 		panelRisposteMultiple.add(panelRisposta3);
+		panelRisposta3.setVisible(false);
 		
 		JLabel lblRisposta3 = new JLabel("Risposta 3");
 		lblRisposta3.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -290,6 +306,7 @@ public class AddDomanda extends JFrame {
 		panelRisposta4.setBackground(Color.WHITE);
 		panelRisposta4.setBounds(0, 188, 627, 47);
 		panelRisposteMultiple.add(panelRisposta4);
+		panelRisposta4.setVisible(false);
 		
 		JLabel lblRisposta4 = new JLabel("Risposta 4");
 		lblRisposta4.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -319,6 +336,7 @@ public class AddDomanda extends JFrame {
 		panelRisposta5.setBackground(Color.WHITE);
 		panelRisposta5.setBounds(0, 238, 627, 47);
 		panelRisposteMultiple.add(panelRisposta5);
+		panelRisposta5.setVisible(false);
 		
 		JLabel lblRisposta5 = new JLabel("Risposta 5");
 		lblRisposta5.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -343,7 +361,125 @@ public class AddDomanda extends JFrame {
 		Giusta5.setBounds(0, 24, 68, 23);
 		panelRisposta5.add(Giusta5);
 		
+		//------------------------------------------------------------------------------------------------------------
+		
 		JButton AddDomanda = new JButton("Aggiungi");
+		AddDomanda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Domanda d = new Domanda();
+				DomandaDAO ddao = new DomandaDAO();
+				d.setIdDomanda(ddao.getMaxId()+1+c.getTest().getDomande().size());
+				d.setIdTest(c.getTest().getIdTest());
+				d.setTestoDomanda(TestoDomanda.getText());
+				if(selectRispostaAperta.isSelected()) {
+					d.setTipo("Aperta");
+				}
+				if(selectRispostaMultipla.isSelected()) {
+					d.setTipo("Multipla");
+					ArrayList<Risposta> risposteNewDomanda = new ArrayList<Risposta>();
+					Risposta r;
+					RispostaDAO rdao = new RispostaDAO();
+					if(selectNumeroRisposte.getSelectedItem()=="Vero o Falso"){
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+1);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta("Vero");
+						r.setCorretta(selectVeroGiusta.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+2);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta("Falso");
+						r.setCorretta(selectFalsoGiusta.isSelected());
+						risposteNewDomanda.add(r);
+					}
+					if(selectNumeroRisposte.getSelectedItem()=="3 Risposte") {
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+1);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta1.getText());
+						r.setCorretta(Giusta1.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+2);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta2.getText());
+						r.setCorretta(Giusta2.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+3);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta3.getText());
+						r.setCorretta(Giusta3.isSelected());
+						risposteNewDomanda.add(r);
+					}
+					if(selectNumeroRisposte.getSelectedItem()=="4 Risposte") {
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+1);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta1.getText());
+						r.setCorretta(Giusta1.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+2);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta2.getText());
+						r.setCorretta(Giusta2.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+3);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta3.getText());
+						r.setCorretta(Giusta3.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+4);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta4.getText());
+						r.setCorretta(Giusta4.isSelected());
+						risposteNewDomanda.add(r);
+					}
+					if(selectNumeroRisposte.getSelectedItem()=="5 Risposte") {
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+1);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta1.getText());
+						r.setCorretta(Giusta1.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+2);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta2.getText());
+						r.setCorretta(Giusta2.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+3);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta3.getText());
+						r.setCorretta(Giusta3.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+4);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta4.getText());
+						r.setCorretta(Giusta4.isSelected());
+						risposteNewDomanda.add(r);
+						r = new Risposta();
+						r.setIdRisposta(rdao.getMaxId()+5);
+						r.setIdDomanda(d.getIdDomanda());
+						r.setTestoRisposta(TestoRisposta5.getText());
+						r.setCorretta(Giusta5.isSelected());
+						risposteNewDomanda.add(r);
+					}
+					d.setRisposte(risposteNewDomanda);
+				}
+				c.getTest().addDomande(d);
+				CreazioneTest.getTableModel().addRow(new Object[] {d.getIdDomanda(),d.getTestoDomanda()});
+				frame.setVisible(false);
+				CreazioneTest.setVisible(true);
+			}
+		});
 		AddDomanda.setForeground(new Color(255, 153, 0));
 		AddDomanda.setBackground(new Color(51, 102, 255));
 		AddDomanda.setFont(new Font("Tahoma", Font.BOLD, 15));

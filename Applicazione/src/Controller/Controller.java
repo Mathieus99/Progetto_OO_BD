@@ -9,9 +9,7 @@ public class Controller {
 	
 	private Studente s = new Studente();
 	private Insegnante i = new Insegnante();
-	private Test t = new Test();
-	private ArrayList<Domanda> domandeCreaTest;
-	private ArrayList<Risposta> risposteCreaTest;
+	private Test newTest = new Test();
 	private Test testInCorso = new Test();
 	private IstanzaDiTest IdT;
 	private String ruolo;
@@ -146,23 +144,23 @@ public class Controller {
 	
 	public void creaTest() {
 		TestDAO tdao = new TestDAO();
-		t.setIdTest(tdao.getMaxId()+1);
+		newTest.setIdTest(tdao.getMaxId()+1);
 	}
 	
 	public double getNumDomande() {
-		return t.getNumeroDomande();
+		return newTest.getNumeroDomande();
 	}
 	
 	public void submitCreaTest() {
-		t.setProprietario(i.getIdDocente());
+		newTest.setProprietario(i.getIdDocente());
 	}
 	
 	public Test getTest() {
-		return t;
+		return newTest;
 	}
 	
 	public void resetTest() {
-		t = null;
+		newTest = null;
 	}
 
 	public IstanzaDiTest getIstanzaDiTest() {
@@ -215,24 +213,6 @@ public class Controller {
 			i++;
 		}
 		
-	}
-
-	public ArrayList<Domanda> getDomandeCreaTest() {
-		return domandeCreaTest;
-	}
-
-	public void setDomandeCreaTest(ArrayList<Domanda> domandeCreaTest) {
-		this.domandeCreaTest = domandeCreaTest;
-	}
-	public void aggiungiDomanda (Domanda d) {
-		domandeCreaTest.add(d);
-	}
-	public ArrayList<Risposta> getRisposteCreaTest() {
-		return risposteCreaTest;
-	}
-
-	public void setRisposteCreaTest(ArrayList<Risposta> risposteCreaTest) {
-		this.risposteCreaTest = risposteCreaTest;
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------------------------------------*/
