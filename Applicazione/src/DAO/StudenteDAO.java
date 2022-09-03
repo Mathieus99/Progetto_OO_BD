@@ -20,6 +20,20 @@ public class StudenteDAO {
 		}
 	}
 	
+	public int getMaxId() {
+		int maxId = 0;
+		try {
+			PreparedStatement getId = conn.prepareStatement("SELECT MAX(idutente) FROM UTENTE");
+			ResultSet rs = getId.executeQuery();
+			while (rs.next())
+				maxId = rs.getInt("max");
+		} catch (SQLException e) {
+			System.out.println("StudenteDAO - Errore recupero max ID");
+			e.printStackTrace();
+		}
+		return maxId;
+	}
+	
 	public ArrayList<IstanzaDiTest> loadTestSostenuti (Studente s){
 		IstanzaDiTest IdT;
 		TestDAO tdao = new TestDAO();
@@ -47,6 +61,16 @@ public class StudenteDAO {
 			e.printStackTrace();
 		}
 		return testStudente;
+	}
+	
+	public void register(Studente s) {
+		try {
+			PreparedStatement registra = conn.prepareStatement("INSERT INTO utente(idutente,nome,cognome,email,password) VALUES("+s.getIdStudente()+",'"+s.getNome()+"','"+s.getCognome()+"','"+s.getEmail()+"','"+s.getPassword()+"')");
+			registra.execute();
+		} catch (SQLException e) {
+			System.out.println("StudenteDAO - Errore Registrazione Studente");
+			e.printStackTrace();
+		}
 	}
 	
 	public Studente login(String email, String pass){

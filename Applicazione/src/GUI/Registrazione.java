@@ -30,6 +30,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTree;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
@@ -65,6 +66,9 @@ public class Registrazione extends JFrame {
 		setTitle("Legnarino Web Learning");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Registrazione.class.getResource("/Immagini/Legnarino_icon2.png")));
 		setBounds(750, 250, 714, 445);
+		Dimension dim = getToolkit().getScreenSize();
+		this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+		this.setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		frame=this;
 		controller=c;
@@ -194,7 +198,7 @@ public class Registrazione extends JFrame {
 					lblEmailError.setText("Inserisci l'email!");
 					ok=false;
 				}
-				if(!textFieldEmail.getText().contains("@studenti.unina.it") && !lblEmailError.getText().contentEquals("Inserisci l'email!")) {
+				if((!textFieldEmail.getText().contains("@Studenti.Universita.it") && !textFieldEmail.getText().contains("@Docenti.Universita.it")) && lblEmailError.getText().contentEquals("")) {
 					lblEmailError.setText("Email non valida!");
 					ok=false;
 				}
@@ -247,7 +251,7 @@ public class Registrazione extends JFrame {
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("**Inserire solo email \"@Studenti.Universita.it\" o \"@Docenti.Universita.it\"");
-		lblNewLabel_1.setBounds(46, 325, 410, 14);
+		lblNewLabel_1.setBounds(46, 325, 410, 20);
 		getContentPane().add(lblNewLabel_1);
 		
 		JButton btnAnnulla = new JButton("Annulla");

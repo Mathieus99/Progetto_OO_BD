@@ -20,6 +20,20 @@ public class InsegnanteDAO {
 		}
 	}
 	
+	public int getMaxId() {
+		int maxId = 0;
+		try {
+			PreparedStatement getId = conn.prepareStatement("SELECT MAX(idutente) FROM UTENTE");
+			ResultSet rs = getId.executeQuery();
+			while (rs.next())
+				maxId = rs.getInt("max");
+		} catch (SQLException e) {
+			System.out.println("StudenteDAO - Errore recupero max ID");
+			e.printStackTrace();
+		}
+		return maxId;
+	}
+	
 	public Insegnante login(String email, String pass){
 		i = new Insegnante();
 		try {
@@ -62,6 +76,16 @@ public class InsegnanteDAO {
 			e.printStackTrace();
 			return null;
 		}			
+	}
+	
+	public void register(Insegnante i) {
+		try {
+			PreparedStatement registra = conn.prepareStatement("INSERTO INTO utente(idutente,nome,cognome,email,password) VALUES("+i.getIdDocente()+",'"+i.getNome()+"','"+i.getCognome()+"','"+i.getEmail()+"','"+i.getPassword()+"')");
+			registra.execute();
+		} catch (SQLException e) {
+			System.out.println("InsegnanteDAO - Errore Registrazione insegnante");
+			e.printStackTrace();
+		}
 	}
 	
 	public int getIdDocente(Insegnante i) {

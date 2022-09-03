@@ -23,10 +23,24 @@ public class Controller {
 	/*----------------------------------------------------------REGISTRAZIONE E FUNZIONI LOGOUT UTENTI------------------------------------------*/
 		
 	public void registrazione (String nome, String cognome,String password, String email){
-		i.setNome(nome);
-		i.setCognome(cognome);
-		i.setPassword(password);
-		i.setEmail(email);
+		StudenteDAO sdao = new StudenteDAO();
+		InsegnanteDAO idao = new InsegnanteDAO();
+		if(email.contains("@Studenti.Universita.it")) {
+			s.setIdStudente(sdao.getMaxId()+1);
+			s.setNome(nome);
+			s.setCognome(cognome);
+			s.setEmail(email);
+			s.setPassword(password);
+			sdao.register(s);
+		}
+		if(email.contains("@Docenti.Universita.it")) {
+			i.setIdDocente(idao.getMaxId()+1);
+			i.setNome(nome);
+			i.setCognome(cognome);
+			i.setEmail(email);
+			i.setPassword(password);
+			idao.register(i);
+		}
 	}	
 	
 	public void logout(Studente s) {
