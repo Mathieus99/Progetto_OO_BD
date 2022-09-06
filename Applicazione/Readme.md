@@ -22,5 +22,8 @@ Nella sezione dedicata ai **_Test_**:
 ## 📊 Diagrammi UML
 Nella cartella **_Diagrammi App_** sono inseriti i diagrammi del dominio del problema, della soluzione e i sequence diagram.
 
+## :notebook_with_decorative_cover: Documentazione
+Nella cartella **_Documentazione_** è presente la documentazione relativa all'applicazione.
+
 ## 📀 Codice Sorgente
 Il codice sorgente è inserito nella cartella **_src_**.
