@@ -98,19 +98,6 @@ public class StudenteDAO {
 		}			
 	}
 	
-	public long searchIdStudente(Studente s) {
-		long idStudente = 0;
-		try {
-			PreparedStatement searchId = conn.prepareStatement("SELECT idutente FROM utente WHERE email='"+s.getEmail()+"' AND ruolo='Studente'");
-			ResultSet rs = searchId.executeQuery();
-			while(rs.next())
-				idStudente = rs.getLong("idutente");
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return idStudente;
-	}
-	
 	public Studente setStudenteIstanza(int id) {
 		Studente s = new Studente();
 		try {
@@ -127,14 +114,5 @@ public class StudenteDAO {
 			e.printStackTrace();
 		}
 		return s;
-	}
-	
-	public void insertStudent(Studente s) {
-		try {
-			PreparedStatement register = conn.prepareStatement("INSERT INTO utente (nome,cognome,email,password,ruolo) values ('"+ s.getNome() + "','" + s.getCognome() + "','" +s.getEmail() + "','" + s.getPassword() + "','Studente')");
-			register.executeQuery();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 }
