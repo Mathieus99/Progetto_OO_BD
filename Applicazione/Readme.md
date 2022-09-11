@@ -23,7 +23,7 @@ Nella sezione dedicata ai **_Test_**:
 Nella cartella **_Diagrammi App_** sono inseriti i diagrammi del dominio del problema, della soluzione e i sequence diagram.
 
 ## :notebook_with_decorative_cover: Documentazione
-Nella cartella **_Documentazione_** è presente la documentazione relativa all'applicazione.
+La documentazione dell'applicazione risiede nel file _Legnarino.pdf_
 
 ## 📀 Codice Sorgente
 Il codice sorgente è inserito nella cartella **_src_**.
